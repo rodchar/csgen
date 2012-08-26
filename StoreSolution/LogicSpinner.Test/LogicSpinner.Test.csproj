@@ -74,7 +74,7 @@
     <None Include="lib\nunit\nunit.exe.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="docs\locals.PNG" />
+    <Content Include="docs\Spinner Loop Locals.JPG" />
     <Content Include="docs\Todo.txt" />
     <Content Include="lib\nunit\framework\nunit.framework.dll" />
     <Content Include="lib\nunit\framework\nunit.framework.xml" />
