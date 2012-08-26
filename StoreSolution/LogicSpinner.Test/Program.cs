@@ -32,9 +32,9 @@ namespace LogicSpinner.Test
             List<Product> purchased = new List<Product>();
 
             purchased.Add(new Product() { Id = 1, Name = "banana" });
-            purchased.Add(new Product() { Id = 1, Name = "banana" });
-            purchased.Add(new Product() { Id = 1, Name = "kiwi" });
-            purchased.Add(new Product() { Id = 1, Name = "strawberry" });
+            purchased.Add(new Product() { Id = 2, Name = "banana" });
+            purchased.Add(new Product() { Id = 3, Name = "kiwi" });
+            purchased.Add(new Product() { Id = 4, Name = "strawberry" });
 
             return purchased;
         }
@@ -44,7 +44,7 @@ namespace LogicSpinner.Test
             List<Reward> toReturn = new List<Reward>();
             toReturn.Add(new Reward() { Id = 1, ProductsCsv = "banana,strawberry" });
             toReturn.Add(new Reward() { Id = 2, ProductsCsv = "strawberry" });
-            toReturn.Add(new Reward() { Id = 2, ProductsCsv = "banana,banana,banana" });
+            toReturn.Add(new Reward() { Id = 3, ProductsCsv = "banana,banana,banana" });
 
             return toReturn;
         }        
