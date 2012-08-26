@@ -1,3 +1,4 @@
 ﻿8/25/2012
 1. Incoporate business objects into testing harness.
 2. Move business logic from testing harness after testing.
+3. Take new png of locals and spinner logic loop. 
