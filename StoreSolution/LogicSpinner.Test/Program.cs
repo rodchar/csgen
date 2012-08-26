@@ -16,78 +16,71 @@ namespace LogicSpinner.Test
         }
 
         [Test]
-        public static void TestMethod() //Initial testing template from StackOverflow
-        {
-            //http://stackoverflow.com/q/12093086/139698
-
-            //decimal expected = 3;
-            Dictionary<string, int> selectedDictionary = ToGroupDictionary("banana,banana,cherry,kiwi,strawberry");
-            List<string> lookup = Rewards();
-
-            Console.WriteLine();
-            foreach (string test in lookup)
-            {
-                var testDictionary = ToGroupDictionary(test);
-                testDictionary.Keys.ToList().ForEach(k =>
-                    Console.WriteLine(selectedDictionary.ContainsKey(k) &&
-                        selectedDictionary[k] >= testDictionary[k]));
-            }
-            //Assert.AreEqual(expected, actual);
-        }
-
-        [Test]
         public static void TestMethod2()
         {
             Dictionary<string, int> toReturn = new Dictionary<string, int>();
-            Dictionary<string, int> purchasedDictionary = ToGroupDictionary("banana,banana,cherry,kiwi,strawberry");
-            List<string> rewards = Rewards();
+
+            List<Reward> rewards = Rewards();
+            List<Product> purchased = Purchased();
+
+            string sPurchased = string.Empty;
+
+            foreach (var item in purchased)
+            {
+                sPurchased += string.Format("{0},", item.Name);
+            }
+            
+            Dictionary<string, int> purchasedDictionary = ToGroupDictionary(sPurchased);
 
             Console.WriteLine();
-            foreach (string reward in rewards)
+            
+            foreach (Reward reward in rewards)
             {
-                var rewardDictionary = ToGroupDictionary(reward);
-
+                var rewardDictionary = ToGroupDictionary(reward.ProductsCsv);
+                
                 rewardDictionary.Keys.ToList().ForEach(k =>
                 {
                     //http://stackoverflow.com/q/12126832/139698
-
+                    
                     if (purchasedDictionary.ContainsKey(k) &&
                         purchasedDictionary[k] >= rewardDictionary[k])
                     {
                         //todo: add to toReturn list code.
+                        Console.WriteLine("Found!");
                     }
+
                 });
+
             }
+        }
+
+        private static List<Product> Purchased()
+        {
+            List<Product> purchased = new List<Product>();
+
+            purchased.Add(new Product() { Id = 1, Name = "banana" });
+            purchased.Add(new Product() { Id = 1, Name = "banana" });
+            purchased.Add(new Product() { Id = 1, Name = "kiwi" });
+            purchased.Add(new Product() { Id = 1, Name = "strawberry" });
+
+            return purchased;
+        }
+       
+        private static List<Reward> Rewards()
+        {
+            List<Reward> toReturn = new List<Reward>();
+            toReturn.Add(new Reward() { Id = 1, ProductsCsv = "banana,strawberry" });
+            toReturn.Add(new Reward() { Id = 2, ProductsCsv = "strawberry" });
+            toReturn.Add(new Reward() { Id = 2, ProductsCsv = "banana,banana,banana" });
+
+            return toReturn;
         }
 
         private static Dictionary<string, int> ToGroupDictionary(string value)
         {
-            return value.Split(',')
+            return value.Split(new[]{','}, StringSplitOptions.RemoveEmptyEntries)
                 .GroupBy(s => s.Trim())
                 .ToDictionary(g => g.Key, g => g.Count());
-        }
-
-        private static Dictionary<string, int> Purchased()
-        {
-            //banana,banana,cherry,kiwi,strawberry
-            Dictionary<string, int> purchased = new Dictionary<string, int>();
-            purchased.Add("banana", 2);
-            purchased.Add("cherry", 1);
-            purchased.Add("kiwi", 1);
-            purchased.Add("strawberry", 1);
-
-            return purchased;
-        }
-
-        private static List<string> Rewards()
-        {
-            List<string> toReturn = new List<string>(){
-                "banana,strawberry",
-                "strawberry",
-                "banana,banana,banana"
-            };
-
-            return toReturn;
         }
     }
 }

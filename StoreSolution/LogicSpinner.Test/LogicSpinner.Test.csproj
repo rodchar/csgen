@@ -74,6 +74,8 @@
     <None Include="lib\nunit\nunit.exe.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="docs\locals.PNG" />
+    <Content Include="docs\Todo.txt" />
     <Content Include="lib\nunit\framework\nunit.framework.dll" />
     <Content Include="lib\nunit\framework\nunit.framework.xml" />
     <Content Include="lib\nunit\framework\nunit.mocks.dll" />
@@ -97,6 +99,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="lib\nunit\addins\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LogicSpinner\LogicSpinner\LogicSpinner.csproj">
+      <Project>{77F2D292-6C53-4E38-8E00-3461EDBEDBD9}</Project>
+      <Name>LogicSpinner</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
