@@ -8,37 +8,45 @@ namespace LogicSpinner
     public class Business
     {
 
-
-        public static List<string> Rewards(Dictionary<string, int> rewards, List<string> purchased)
+        public static List<Reward> Rewards(List<Reward> rewards, List<Product> purchased)
         {
-            List<string> toReturn = new List<string>();
+            List<Reward> toReturn = new List<Reward>();
+            
+            string sPurchased = string.Empty;
 
-            foreach (string test in purchased)
+            foreach (var item in purchased)
             {
+                sPurchased += string.Format("{0},", item.Name);
+            }
 
-                var testDictionary = ToGroupDictionary(test);
-                testDictionary.Keys.ToList().ForEach(k =>
-                    Console.WriteLine(rewards.ContainsKey(k) &&
-                        rewards[k] >= testDictionary[k]));
+            Dictionary<string, int> purchasedDictionary = ToGroupDictionary(sPurchased);            
 
-                // [0] := 
-                // ["banana", 1] 
-                // ["strawberry", 1] 
-                // true, banana and strawberry exist 
+            foreach (Reward reward in rewards)
+            {
+                Boolean isQualifiedReward = false;
 
-                // [1] := 
-                // ["strawberry", 1] 
-                // true, strawberry exists 
+                var rewardDictionary = ToGroupDictionary(reward.ProductsCsv);
 
-                // [2] := 
-                // ["banana", 3] 
-                // false, too many bananas 
+                rewardDictionary.Keys.ToList().ForEach(k =>
+                {
+                    //http://stackoverflow.com/q/12126832/139698
 
+                    if (purchasedDictionary.ContainsKey(k) &&
+                        purchasedDictionary[k] >= rewardDictionary[k])
+                    {
+                        isQualifiedReward = true;
+                    }
+
+                });
+
+                if (isQualifiedReward)
+                {
+                    toReturn.Add(reward);
+                }
             }
 
             return toReturn;
         }
-
 
         private static Dictionary<string, int> ToGroupDictionary(string value)
         {
