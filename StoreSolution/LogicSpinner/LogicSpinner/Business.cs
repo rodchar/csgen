@@ -36,6 +36,11 @@ namespace LogicSpinner
                     {
                         isQualifiedReward = true;
                     }
+                    else
+                    {
+                        isQualifiedReward = false;
+                        return;
+                    }
 
                 });
 

@@ -45,6 +45,7 @@ namespace LogicSpinner.Test
             toReturn.Add(new Reward() { Id = 1, ProductsCsv = "banana,strawberry" });
             toReturn.Add(new Reward() { Id = 2, ProductsCsv = "strawberry" });
             toReturn.Add(new Reward() { Id = 3, ProductsCsv = "banana,banana,banana" });
+            toReturn.Add(new Reward() { Id = 4, ProductsCsv = "banana,banana,orange" });
 
             return toReturn;
         }        
