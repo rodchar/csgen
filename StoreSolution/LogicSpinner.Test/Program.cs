@@ -18,13 +18,19 @@ namespace LogicSpinner.Test
         [Test]
         public static void TestMethod2()
         {
+            //Arrange
             List<Reward> rewards = Rewards();
             List<Product> purchased = Purchased();
 
+            //Action
             rewards = Business.Rewards(rewards, purchased);
+            
+            //Assert
+            Assert.AreEqual(rewards.Count, 2);
 
+            //Output
             Console.WriteLine();
-            rewards.ForEach(r=>Console.WriteLine(r.ProductsCsv));
+            rewards.ForEach(r => Console.WriteLine(r.ProductsCsv));
         }
        
         private static List<Product> Purchased()

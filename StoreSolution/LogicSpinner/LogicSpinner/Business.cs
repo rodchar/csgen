@@ -7,7 +7,7 @@ namespace LogicSpinner
 {
     public class Business
     {
-
+        //http://stackoverflow.com/a/12093574/139698
         public static List<Reward> Rewards(List<Reward> rewards, List<Product> purchased)
         {
             List<Reward> toReturn = new List<Reward>();
