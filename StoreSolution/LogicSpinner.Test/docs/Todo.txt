@@ -1,4 +1,9 @@
-﻿8/25/2012
+﻿8/28/2012
+1. Table lookup for products and abbreviations
+2. CRUD for Products, Rewards, print data
+3. Import print capture
+
+8/25/2012
 1. Done. Incoporate business objects into testing harness.
 2. Done. Move business logic from testing harness after testing.
-3. Done. Take new png of locals and spinner logic loop. 
+3. Done. Take new png of locals and spinner logic loop.
