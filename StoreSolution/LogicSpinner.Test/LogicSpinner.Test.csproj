@@ -64,10 +64,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessTests.cs" />
+    <Compile Include="DALTests.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="docs\bpdb.BAK" />
     <None Include="lib\nunit\nunit-agent.exe.config" />
     <None Include="lib\nunit\nunit-console-x86.exe.config" />
     <None Include="lib\nunit\nunit-console.exe.config" />
