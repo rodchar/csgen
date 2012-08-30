@@ -97,6 +97,19 @@ namespace LogicSpinner
             return r;
         }
 
+        public static List<Reward> Rewards(List<Product> products)
+        {
+            string queryString = string.Format(@"
+            
+            ");
+
+            DataTable dt = GetDatabaseRecords(queryString);
+
+            List<Reward> r = GetGenericRewardList(dt);
+
+            return r;
+        }
+
         private static List<Reward> GetGenericRewardList(DataTable dt)
         {
             List<Reward> list = new List<Reward>();
