@@ -20,7 +20,7 @@ namespace LogicSpinner.Test
         {
             //Arrange
             List<Reward> rewards = Rewards();
-            List<Product> purchased = Purchased();
+            List<PurchaseItem> purchased = Purchased();
 
             //Action
             rewards = Business.Rewards(rewards, purchased);
@@ -34,16 +34,31 @@ namespace LogicSpinner.Test
             rewards.ForEach(r => Console.WriteLine(r.ProductsCsv));
         }
 
-        private static List<Product> Purchased()
+        [Test]
+        public void Slow_SpinnerLogic_with_database()
         {
-            List<Product> purchased = new List<Product>();
+            //Get Purchase Id
+            int purchaseId = 1;
+            //Get Purchase Items by Purchase Id
+            List<PurchaseItem> purchases = PurchaseDAL.PurchaseItems(purchaseId);
 
-            purchased.Add(new Product() { Id = 1, Name = "banana" });
-            purchased.Add(new Product() { Id = 2, Name = "banana" });
-            purchased.Add(new Product() { Id = 3, Name = "kiwi" });
-            purchased.Add(new Product() { Id = 4, Name = "strawberry" });
+            //Get Rewards that have product name in
+            // table Rewards column ProductCsv. 
 
-            return purchased;
+            //Run these results through SpinnerLogic
+            // using Business.Rewards(purchased,rewards)
+        }
+
+        private static List<PurchaseItem> Purchased()
+        {
+            List<PurchaseItem> purchases = new List<PurchaseItem>();
+
+            purchases.Add(new PurchaseItem() { Id = 1, Name = "banana" });
+            purchases.Add(new PurchaseItem() { Id = 2, Name = "banana" });
+            purchases.Add(new PurchaseItem() { Id = 3, Name = "kiwi" });
+            purchases.Add(new PurchaseItem() { Id = 4, Name = "strawberry" });
+
+            return purchases;
         }
 
         private static List<Reward> Rewards()
@@ -55,6 +70,6 @@ namespace LogicSpinner.Test
             toReturn.Add(new Reward() { Id = 4, ProductsCsv = "banana,banana,orange" });
 
             return toReturn;
-        }        
+        }
     }
 }

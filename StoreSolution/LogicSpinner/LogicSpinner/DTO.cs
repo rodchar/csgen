@@ -25,4 +25,17 @@ namespace LogicSpinner
         public string Name { get; set; }
         public decimal Cost { get; set; }
     }
+
+    public class Purchase
+    {
+        public int Id { get; set; }
+        public DateTime Date { get; set; }
+        public List<PurchaseItem> PurchaseItems { get; set; }        
+    }
+
+    public class PurchaseItem
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+    }
 }

@@ -25,7 +25,7 @@ namespace LogicSpinner.Test
         [Test]
         public void GetProducts()
         {
-            List<Product> p = DAL.Products();
+            List<Product> p = ProductDAL.Products();
 
             Assert.Greater(p.Count, 0);
         }
@@ -34,9 +34,25 @@ namespace LogicSpinner.Test
         [Test]
         public void GetRewards()
         {
-            List<Reward> r = DAL.Rewards();
-
+            List<Reward> r = RewardDAL.Rewards();
+            
             Assert.Greater(r.Count, 0);
+        }
+
+        [Test]
+        public void GetPurchaseItems()
+        {            
+            List<PurchaseItem> items = PurchaseDAL.PurchaseItems(1);
+
+            Assert.Greater(items.Count, 0);
+        }
+
+        [Test]
+        public void GetPurchases()
+        {
+            Console.WriteLine("\nTODO GetPurchases Test");
+         
+            Assert.Inconclusive();
         }
     }
 }

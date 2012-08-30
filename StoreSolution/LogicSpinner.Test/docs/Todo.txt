@@ -1,4 +1,8 @@
-﻿8/28/2012
+﻿8/29/2012 (2 hours)
+1. Done. Need purchased table.
+2. Save the database
+
+8/28/2012 (3 hours)
 1. Table lookup for products and abbreviations
 2. CRUD for Products, Rewards, print data
 3. Import print capture
