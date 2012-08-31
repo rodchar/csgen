@@ -13,7 +13,7 @@ namespace LogicSpinner
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public Boolean IsActive { get; set; }
-        public string ProductsCsv { get; set; }
+        public string ProductCsv { get; set; }
         public string Descrition { get; set; }
         public string Name { get; set; }
         public int Quantity { get; set; }

@@ -97,11 +97,20 @@ namespace LogicSpinner
             return r;
         }
 
-        public static List<Reward> Rewards(List<Product> products)
+        public static List<Reward> Rewards(List<PurchaseItem> products)
         {
+            string sProducts = string.Empty;
+
+            foreach (var item in products)
+            {
+                sProducts += string.Format("ProductCsv like '%{0}%' or ", item.Name);
+            }
+
+            sProducts = sProducts.TrimEnd(' ', 'o', 'r');
+
             string queryString = string.Format(@"
-            
-            ");
+             Select * from Rewards where {0}
+            ", sProducts);
 
             DataTable dt = GetDatabaseRecords(queryString);
 
@@ -120,7 +129,7 @@ namespace LogicSpinner
                 {
                     Id = Convert.ToInt32(dr["Id"])
                     ,
-                    ProductsCsv = dr["ProductCsv"].ToString()
+                    ProductCsv = dr["ProductCsv"].ToString()
 
                 };
 

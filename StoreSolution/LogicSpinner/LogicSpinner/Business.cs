@@ -25,7 +25,7 @@ namespace LogicSpinner
             {
                 Boolean isQualifiedReward = false;
 
-                var rewardDictionary = ToGroupDictionary(reward.ProductsCsv);
+                var rewardDictionary = ToGroupDictionary(reward.ProductCsv);
 
                 rewardDictionary.Keys.ToList().ForEach(k =>
                 {
@@ -55,7 +55,7 @@ namespace LogicSpinner
 
         private static Dictionary<string, int> ToGroupDictionary(string value)
         {
-            return value.Split(',')
+            return value.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
                 .GroupBy(s => s.Trim())
                 .ToDictionary(g => g.Key, g => g.Count());
         }
