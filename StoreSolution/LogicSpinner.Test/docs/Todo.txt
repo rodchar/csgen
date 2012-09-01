@@ -1,3 +1,8 @@
+9/1/2012 (2 hours)
+1. Use Visual Web Developer to build my DataSet
+2. Include Sample feed on desktop. This also has code snippet
+   for Purchase ORM
+
 ﻿8/29/2012 (2 hours)
 1. Done. Need purchased table.
 2. Save the database
