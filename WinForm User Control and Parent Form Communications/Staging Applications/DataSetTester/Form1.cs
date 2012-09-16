@@ -14,7 +14,7 @@ namespace DataSetTester
     {
         BpDS ds = new BpDS();
         BpDS.ProductsDataTable dtProducts;
-        BpDS.ReceiptItemNamesDataTable dtReceiptItemNames;
+        
 
         public Form1()
         {
@@ -24,7 +24,7 @@ namespace DataSetTester
         private void Form1_Load(object sender, EventArgs e)
         {
             dtProducts = Business.Products();
-            dtProducts.CopyToDataTable(this.bpDS1.Products, LoadOption.PreserveChanges);
+            Business.ProductsNotMatched().CopyToDataTable(this.bpDS1.Products, LoadOption.OverwriteChanges);
 
             lbProducts.SelectedIndex = -1;
 
@@ -127,10 +127,9 @@ namespace DataSetTester
 
         private void btnBindTest_Click(object sender, EventArgs e)
         {
-            Business.Products().CopyToDataTable(this.bpDS1.Products, LoadOption.PreserveChanges);
+            this.bpDS1.Products.Clear();
+            Business.ProductsNotMatched().CopyToDataTable(this.bpDS1.Products, LoadOption.OverwriteChanges);
+            lbProducts.SelectedIndex = -1;
         }
-
-
-
     }
 }
