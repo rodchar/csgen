@@ -93,6 +93,11 @@ namespace LogicSpinner
         {
             return daProducts.GetProductsNotMatchedYet();
         }
+
+        internal static void Update(BpDS ds)
+        {
+            daProducts.Update(ds);
+        }
     }
 
     public class RewardDAL : DAL

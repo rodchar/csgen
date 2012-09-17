@@ -14,7 +14,7 @@ namespace DataSetTester
     {
         BpDS ds = new BpDS();
         BpDS.ProductsDataTable dtProducts;
-        
+
 
         public Form1()
         {
@@ -32,7 +32,7 @@ namespace DataSetTester
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if (tbProducts.Text==string.Empty)
+            if (tbProducts.Text == string.Empty)
             {
                 tbProducts.Focus();
                 return;
@@ -52,17 +52,24 @@ namespace DataSetTester
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
+            var row = lbProducts_SelectedRow();
+            row.Name = tbProducts.Text;
+
+            tbProducts.Clear();
+            tbProducts.Focus();
+        }
+
+        private BpDS.ProductsRow lbProducts_SelectedRow()
+        {
             int selVal = 0;
             int.TryParse(lbProducts.SelectedValue.ToString(), out selVal);
 
             if (selVal > 0)
             {
                 var editRow = bpDS1.Products.FindById(selVal);
-                editRow.Name = tbProducts.Text;
+                return editRow;
             }
-
-            tbProducts.Clear();
-            tbProducts.Focus();
+            return null;
         }
 
         private void lbProducts_Click(object sender, EventArgs e)
@@ -71,7 +78,7 @@ namespace DataSetTester
             {
                 btnAdd.Enabled = false;
                 btnUpdate.Enabled = true;
-                btnCancel.Enabled = true;                
+                btnCancel.Enabled = true;
 
                 tbProducts.Text = (lbProducts.SelectedItem as DataRowView)["Name"].ToString();
             }
@@ -120,9 +127,7 @@ namespace DataSetTester
 
         private void lbProducts_SelectedIndexChanged(object sender, EventArgs e)
         {
-
             btnRemove.Enabled = lbProducts.SelectedIndex != -1;
-            
         }
 
         private void btnBindTest_Click(object sender, EventArgs e)

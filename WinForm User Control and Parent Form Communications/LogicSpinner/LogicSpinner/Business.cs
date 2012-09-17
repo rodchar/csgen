@@ -75,5 +75,10 @@ namespace LogicSpinner
         {
             return ReceiptDAL.ReceiptItemNamesNotMatchedYet();
         }
+
+        public static void Update(BpDS ds)
+        {
+            ProductDAL.Update(ds);
+        }
     }
 }
