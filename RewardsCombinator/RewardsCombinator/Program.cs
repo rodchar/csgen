@@ -36,6 +36,16 @@ namespace RewardsCombinator
                 //Do work here.
                 
             }
+
+            Console.WriteLine();
+
+            //Example Linq
+            //http://code.msdn.microsoft.com/101-LINQ-Samples-3fb9811b
+
+            var test = from t in requirementsList
+                       where t.RewardId == 3
+                       select t;
+            Console.WriteLine(test.ToList()[0].Product);
         }
 
         private static void PopulateTestData()
