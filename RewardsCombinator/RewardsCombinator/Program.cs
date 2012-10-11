@@ -27,12 +27,14 @@ namespace RewardsCombinator
             PopulateTestData();
 
 
-            foreach (var item in requirementsList)
+            IEnumerable<int> rewardIds = requirementsList.Select(x => x.RewardId).Distinct();
+
+            foreach (int rewardId in rewardIds)
             {
-                //Do Work here
+                //Console.WriteLine(rewardId.ToString());
+
+                //Do work here.
                 
-
-
             }
         }
 
