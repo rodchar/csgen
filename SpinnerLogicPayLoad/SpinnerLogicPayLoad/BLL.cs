@@ -39,7 +39,7 @@ namespace SpinnerLogicPayLoad
 
             } //Outer loop ends here
 
-            var payLoad = FindMaxValue(payLoads, x => x.Total);
+            var payLoad = FindMaxValue(payLoads, x => x.Total, y => y.Priority);
         }
 
         private void QualifyReward(int initialRewardId)
@@ -57,6 +57,7 @@ namespace SpinnerLogicPayLoad
                 c1.Id = initialRewardId;
                 c1.Rewards.Add(rew.Id);
                 c1.Total += rew.Value;
+                c1.Priority = rew.Priority;
 
                 if (rew.Token)
                 {
@@ -70,10 +71,10 @@ namespace SpinnerLogicPayLoad
 
         public BLL(List<Pur> a, List<Req> b)
         {
-            Rew rew1 = new Rew() { Id = 1, Value = 20, Token = true };
-            Rew rew2 = new Rew() { Id = 2, Value = 10, Token = false };
-            Rew rew3 = new Rew() { Id = 3, Value = 60, Token = true };
-            Rew rew4 = new Rew() { Id = 4, Value = 50, Token = true };
+            Rew rew1 = new Rew() { Id = 1, Value = 20, Token = true, Priority = 50 };
+            Rew rew2 = new Rew() { Id = 2, Value = 10, Token = false, Priority = 50 };
+            Rew rew3 = new Rew() { Id = 3, Value = 60, Token = true, Priority = 49 };
+            Rew rew4 = new Rew() { Id = 4, Value = 50, Token = true, Priority = 50 };
 
             //For inner loop
             wListOrdered = new List<Rew>();
@@ -104,25 +105,37 @@ namespace SpinnerLogicPayLoad
             return a.Skip(start).Concat(a.Take(start)).ToList();
         }
 
-        private Col1 FindMaxValue<T>(List<T> list, Converter<T, int> projection)
+        private Col1 FindMaxValue<T>(List<T> list, Converter<T, int> projection, Converter<T, int> projection2)
         {
             Col1 toReturn = null;
+            Col1 toReturn2 = null;
 
             if (list.Count == 0)
             {
                 throw new InvalidOperationException("Empty list");
             }
             int maxValue = int.MinValue;
+            int minValue = int.MaxValue;
             foreach (T item in list)
             {
                 int value = projection(item);
+                int value2 = projection2(item);
                 if (value > maxValue)
                 {
                     maxValue = value;
                     toReturn = item as Col1;
                 }
+                if (value2 < minValue)
+                {
+                    minValue = value2;
+                    toReturn2 = item as Col1;
+                }
             }
-            return toReturn;
+
+            if (toReturn != toReturn2)
+                return toReturn2;
+            else
+                return toReturn;
         }
     }    
 }

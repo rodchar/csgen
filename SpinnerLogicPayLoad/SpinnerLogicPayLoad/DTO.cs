@@ -19,6 +19,7 @@ namespace SpinnerLogicPayLoad
         public int Id { get; set; }
         public int Value { get; set; }
         public Boolean Token { get; set; }
+        public int Priority { get; set; }
     }
 
     public class Req
@@ -33,10 +34,12 @@ namespace SpinnerLogicPayLoad
         public int Id { get; set; }
         public List<int> Rewards { get; set; }
         public int Total { get; set; }
+        public int Priority { get; set; }
 
         public Col1()
         {
             Rewards = new List<int>();
         }
+
     }
 }
