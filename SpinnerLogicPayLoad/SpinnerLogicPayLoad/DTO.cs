@@ -6,6 +6,7 @@ namespace SpinnerLogicPayLoad
     public class Pur : ICloneable
     {
         public string Product { get; set; }
+        public string Category { get; set; }
         public int Quantity { get; set; }
 
         public object Clone()
@@ -17,6 +18,7 @@ namespace SpinnerLogicPayLoad
     public class Rew
     {
         public int Id { get; set; }
+        public string Name { get; set; }
         public int Value { get; set; }
         public Boolean Token { get; set; }
         public int Priority { get; set; }
@@ -27,20 +29,20 @@ namespace SpinnerLogicPayLoad
     {
         public int RewardId { get; set; }
         public string Product { get; set; }
+        public string Category { get; set; }
         public int Quantity { get; set; }
     }
 
-    public class Col1
+    public class PayLoad
     {
         public int Id { get; set; }
-        public List<int> Rewards { get; set; }
+        public List<Rew> Rewards { get; set; }
         public int Total { get; set; }
         public int Priority { get; set; }
 
-        public Col1()
+        public PayLoad()
         {
-            Rewards = new List<int>();
+            Rewards = new List<Rew>();
         }
-
     }
 }
