@@ -20,6 +20,7 @@ namespace SpinnerLogicPayLoad
         public int Value { get; set; }
         public Boolean Token { get; set; }
         public int Priority { get; set; }
+        public List<Req> RewReq { get; set; }
     }
 
     public class Req

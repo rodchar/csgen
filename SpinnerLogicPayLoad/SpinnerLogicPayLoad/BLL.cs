@@ -10,12 +10,12 @@ namespace SpinnerLogicPayLoad
         Col1 c1;
         List<Pur> pList;
         List<Pur> pListOriginal;
-        List<Req> rList;
+        
         int[] wList;
         List<Rew> wListOrdered;
         List<Col1> payLoads;
 
-        public void Start()
+        public Col1 Run()
         {            
             payLoads = new List<Col1>();
 
@@ -39,12 +39,13 @@ namespace SpinnerLogicPayLoad
 
             } //Outer loop ends here
 
-            var payLoad = FindMaxValue(payLoads, x => x.Total, y => y.Priority);
+            //Return the payload!
+            return FindMaxValue(payLoads, x => x.Total, y => y.Priority);
         }
 
         private void QualifyReward(int initialRewardId)
         {
-            var rListFilter = rList.Where(x => x.RewardId == rew.Id).ToList();
+            var rListFilter = rew.RewReq;
 
             var xList = from r in rListFilter
                         join p in pList
@@ -69,34 +70,19 @@ namespace SpinnerLogicPayLoad
             }
         }
 
-        public BLL(List<Pur> a, List<Req> b)
+        public BLL(List<Pur> receiptItems, List<Rew> eligibleRewards)
         {
-            Rew rew1 = new Rew() { Id = 1, Value = 20, Token = true, Priority = 50 };
-            Rew rew2 = new Rew() { Id = 2, Value = 10, Token = false, Priority = 50 };
-            Rew rew3 = new Rew() { Id = 3, Value = 60, Token = true, Priority = 49 };
-            Rew rew4 = new Rew() { Id = 4, Value = 50, Token = true, Priority = 50 };
-
             //For inner loop
-            wListOrdered = new List<Rew>();
-            wListOrdered.AddRange(new[] { rew1, rew2, rew3, rew4 });
+            wListOrdered = eligibleRewards;
 
             //For outer loop
-            wList = new[] { rew1.Id, rew2.Id, rew3.Id, rew4.Id };
-
-            pList = new List<Pur>();
-            pList.Add(new Pur() { Product = "Strawberry", Quantity = 1 });
-            pList.Add(new Pur() { Product = "Banana", Quantity = 3 });
-
-            pListOriginal = new List<Pur>();
-            pListOriginal.Add(new Pur() { Product = "Strawberry", Quantity = 1 });
-            pListOriginal.Add(new Pur() { Product = "Banana", Quantity = 3 });
-
-            rList = new List<Req>();
-            rList.Add(new Req() { RewardId = 1, Product = "Strawberry", Quantity = 1 });
-            rList.Add(new Req() { RewardId = 2, Product = "Strawberry", Quantity = 1 });
-            rList.Add(new Req() { RewardId = 3, Product = "Strawberry", Quantity = 1 });
-            rList.Add(new Req() { RewardId = 3, Product = "Banana", Quantity = 1 });
-            rList.Add(new Req() { RewardId = 4, Product = "Banana", Quantity = 3 });
+            wList = new[] { wListOrdered[0].Id, wListOrdered[1].Id, wListOrdered[2].Id, wListOrdered[3].Id };
+            
+            //Working list of receipt items
+            pList = receiptItems;
+            
+            //Preserves the original receipt items
+            pListOriginal = pList.Clone() as List<Pur>;
         }
 
         private static List<Rew> ForwardBackward(List<Rew> a, int start)
