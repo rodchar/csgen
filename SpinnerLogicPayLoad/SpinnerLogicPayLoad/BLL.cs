@@ -9,15 +9,16 @@ namespace SpinnerLogicPayLoad
         Reward _reward;
         PayLoad _payLoad;
         List<ReceiptItem> _receiptItems;
-        List<ReceiptItem> _receiptItemsOriginal;
-
-        int[] rewardIdList;
         List<Reward> _rewardListOrdered;
-        List<PayLoad> _payLoads;
 
         public PayLoad Run()
         {
-            _payLoads = new List<PayLoad>();
+            var receiptItemsOriginal = _receiptItems.Clone() as List<ReceiptItem>;
+
+            var payLoads = new List<PayLoad>();
+
+            //Todo: review this
+            var rewardIdList = new[] { _rewardListOrdered[0].Id, _rewardListOrdered[1].Id, _rewardListOrdered[2].Id, _rewardListOrdered[3].Id };
 
             //Outer loop starts here
             foreach (var rewardId in rewardIdList)
@@ -32,15 +33,15 @@ namespace SpinnerLogicPayLoad
                 }
 
                 if (_payLoad.Rewards.Count() > 0)
-                    _payLoads.Add(_payLoad);
+                    payLoads.Add(_payLoad);
 
                 //Reset purchased list here
-                _receiptItems = _receiptItemsOriginal.Clone() as List<ReceiptItem>;
+                _receiptItems = receiptItemsOriginal.Clone() as List<ReceiptItem>;
 
             } //Outer loop ends here
 
             //Return the payload!
-            return FindMaxValue(_payLoads, x => x.Total, y => y.Priority);
+            return FindMaxValue(payLoads, x => x.Total, y => y.Priority);
         }
 
         private void QualifyReward(int initialRewardId)
@@ -89,17 +90,8 @@ namespace SpinnerLogicPayLoad
 
         public BLL(List<ReceiptItem> receiptItems, List<Reward> eligibleRewards)
         {
-            //For inner loop
-            _rewardListOrdered = eligibleRewards;
-
-            //For outer loop
-            rewardIdList = new[] { _rewardListOrdered[0].Id, _rewardListOrdered[1].Id, _rewardListOrdered[2].Id, _rewardListOrdered[3].Id };
-
-            //Working list of receipt items
             _receiptItems = receiptItems;
-
-            //Preserves the original receipt items
-            _receiptItemsOriginal = receiptItems.Clone() as List<ReceiptItem>;
+            _rewardListOrdered = eligibleRewards;            
         }
 
         #endregion Constructors
