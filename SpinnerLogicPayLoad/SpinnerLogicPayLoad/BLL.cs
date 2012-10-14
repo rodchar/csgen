@@ -6,41 +6,41 @@ namespace SpinnerLogicPayLoad
 {
     public class BLL
     {
-        Rew rew;
-        PayLoad c1;
-        List<Pur> pList;
-        List<Pur> pListOriginal;
+        Reward _reward;
+        PayLoad _payLoad;
+        List<ReceiptItem> _receiptItems;
+        List<ReceiptItem> _receiptItemsOriginal;
 
-        int[] wList;
-        List<Rew> wListOrdered;
-        List<PayLoad> payLoads;
+        int[] rewardIdList;
+        List<Reward> _rewardListOrdered;
+        List<PayLoad> _payLoads;
 
         public PayLoad Run()
         {
-            payLoads = new List<PayLoad>();
+            _payLoads = new List<PayLoad>();
 
             //Outer loop starts here
-            foreach (var outerItem in wList)
+            foreach (var rewardId in rewardIdList)
             {
-                var wListReOrdered = ForwardBackward(wListOrdered, outerItem);
-                c1 = new PayLoad();
+                var rewardListReOrdered = ForwardBackward(_rewardListOrdered, rewardId);
+                _payLoad = new PayLoad();
 
-                foreach (var innerItem in wListReOrdered)
+                foreach (var reward in rewardListReOrdered)
                 {
-                    rew = innerItem;
-                    QualifyReward(outerItem);
+                    _reward = reward;
+                    QualifyReward(rewardId);
                 }
 
-                if (c1.Rewards.Count() > 0)
-                    payLoads.Add(c1);
+                if (_payLoad.Rewards.Count() > 0)
+                    _payLoads.Add(_payLoad);
 
                 //Reset purchased list here
-                pList = pListOriginal.Clone() as List<Pur>;
+                _receiptItems = _receiptItemsOriginal.Clone() as List<ReceiptItem>;
 
             } //Outer loop ends here
 
             //Return the payload!
-            return FindMaxValue(payLoads, x => x.Total, y => y.Priority);
+            return FindMaxValue(_payLoads, x => x.Total, y => y.Priority);
         }
 
         private void QualifyReward(int initialRewardId)
@@ -51,35 +51,35 @@ namespace SpinnerLogicPayLoad
             //required to calculate the best rewards
             //from eligible rewards. 
 
-            var rListFilter = rew.RewReq;
+            var rewardRequirements = _reward.RewardRequirements;
 
             var xCategoryList =
-                from r in rListFilter
-                from p in pList
+                from r in rewardRequirements
+                from p in _receiptItems
                     .Where(y => r.Category == y.Category && y.Quantity >= r.Quantity && (r.Category != null || y.Category != null))
                 select new { r, p };
 
             var xProductList =
-                from r in rListFilter
-                from p in pList
+                from r in rewardRequirements
+                from p in _receiptItems
                     .Where(x => r.Product == x.Product && x.Quantity >= r.Quantity)
                 select new { r, p };
 
-            if (xCategoryList.Count() + xProductList.Count() == rListFilter.Count() || (rew.Token == false)) //or if token not required?
+            if (xCategoryList.Count() + xProductList.Count() == rewardRequirements.Count() || (_reward.Token == false)) //or if token not required?
             {
-                c1.Id = initialRewardId;
-                c1.Rewards.Add(rew);
-                c1.Total += rew.Value;
-                c1.Priority = rew.Priority;
+                _payLoad.Id = initialRewardId;
+                _payLoad.Rewards.Add(_reward);
+                _payLoad.Total += _reward.Value;
+                _payLoad.Priority = _reward.Priority;
 
-                if (rew.Token)
+                if (_reward.Token)
                 {
-                    foreach (var item in rListFilter)
+                    foreach (var item in rewardRequirements)
                     {
                         if (item.Product != null)
-                            pList.Where(x => x.Product == item.Product).FirstOrDefault().Quantity -= item.Quantity;
+                            _receiptItems.Where(x => x.Product == item.Product).FirstOrDefault().Quantity -= item.Quantity;
                         if (item.Category != null)
-                        pList.Where(x => x.Category == item.Category).FirstOrDefault().Quantity -= item.Quantity;
+                        _receiptItems.Where(x => x.Category == item.Category).FirstOrDefault().Quantity -= item.Quantity;
                     }
                 }
             }
@@ -87,26 +87,26 @@ namespace SpinnerLogicPayLoad
 
         #region Constructors
 
-        public BLL(List<Pur> receiptItems, List<Rew> eligibleRewards)
+        public BLL(List<ReceiptItem> receiptItems, List<Reward> eligibleRewards)
         {
             //For inner loop
-            wListOrdered = eligibleRewards;
+            _rewardListOrdered = eligibleRewards;
 
             //For outer loop
-            wList = new[] { wListOrdered[0].Id, wListOrdered[1].Id, wListOrdered[2].Id, wListOrdered[3].Id };
+            rewardIdList = new[] { _rewardListOrdered[0].Id, _rewardListOrdered[1].Id, _rewardListOrdered[2].Id, _rewardListOrdered[3].Id };
 
             //Working list of receipt items
-            pList = receiptItems;
+            _receiptItems = receiptItems;
 
             //Preserves the original receipt items
-            pListOriginal = pList.Clone() as List<Pur>;
+            _receiptItemsOriginal = receiptItems.Clone() as List<ReceiptItem>;
         }
 
         #endregion Constructors
 
         #region General Helpers
 
-        private static List<Rew> ForwardBackward(List<Rew> a, int start)
+        private static List<Reward> ForwardBackward(List<Reward> a, int start)
         {
             start -= 1;
             return a.Skip(start).Concat(a.Take(start)).ToList();

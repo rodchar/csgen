@@ -10,8 +10,8 @@ namespace SpinnerLogicPayLoad
             /* 
              * Qualify Reward method in class BLL is the payload 
              */
-            List<Pur> receiptItems;
-            List<Rew> eligibleRewards;
+            List<ReceiptItem> receiptItems;
+            List<Reward> eligibleRewards;
 
             Console.WriteLine();
             Console.WriteLine("------Test Records 3--------");
@@ -29,7 +29,7 @@ namespace SpinnerLogicPayLoad
             Start(receiptItems, eligibleRewards);
         }
 
-        public static void Start(List<Pur> receiptItems, List<Rew> eligibleRewards)
+        public static void Start(List<ReceiptItem> receiptItems, List<Reward> eligibleRewards)
         {
             PrintInput(receiptItems, eligibleRewards);
 
@@ -51,7 +51,7 @@ namespace SpinnerLogicPayLoad
             Console.WriteLine();
         }
 
-        private static void PrintInput(List<Pur> receiptItems, List<Rew> eligibleRewards)
+        private static void PrintInput(List<ReceiptItem> receiptItems, List<Reward> eligibleRewards)
         {
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("Items Purchased: ");
@@ -65,66 +65,66 @@ namespace SpinnerLogicPayLoad
             Console.WriteLine();
         } 
 
-        private static void TestRecords1(out List<Pur> receiptItems, out List<Rew> eligibleRewards)
+        private static void TestRecords1(out List<ReceiptItem> receiptItems, out List<Reward> eligibleRewards)
         {
-            Rew rew1 = new Rew() { Id = 1, Name = "Straberry x 1 Reward_20", Value = 20, Token = true, Priority = 50, RewReq = new List<Req>() };
-            Rew rew2 = new Rew() { Id = 2, Name = "Straberry x 1 Reward_10 Free Token", Value = 10, Token = false, Priority = 50, RewReq = new List<Req>() };
-            Rew rew3 = new Rew() { Id = 3, Name = "Straberry 1 Banana 1  Reward_60", Value = 60, Token = true, Priority = 50, RewReq = new List<Req>() };
-            Rew rew4 = new Rew() { Id = 4, Name = "Banana x 3 Reward_50", Value = 50, Token = true, Priority = 50, RewReq = new List<Req>() };
-            rew1.RewReq.Add(new Req() { RewardId = 1, Category = null, Product = "Strawberry", Quantity = 1 });
-            rew2.RewReq.Add(new Req() { RewardId = 2, Category = "Fruit", Product = "Strawberry", Quantity = 1 });
-            rew3.RewReq.Add(new Req() { RewardId = 3, Category = null, Product = "Strawberry", Quantity = 1 });
-            rew3.RewReq.Add(new Req() { RewardId = 3, Category = null, Product = "Banana", Quantity = 1 });
-            rew4.RewReq.Add(new Req() { RewardId = 4, Category = null, Product = "Banana", Quantity = 3 });
+            Reward rew1 = new Reward() { Id = 1, Name = "Straberry x 1 Reward_20", Value = 20, Token = true, Priority = 50, RewardRequirements = new List<RewardRequirement>() };
+            Reward rew2 = new Reward() { Id = 2, Name = "Straberry x 1 Reward_10 Free Token", Value = 10, Token = false, Priority = 50, RewardRequirements = new List<RewardRequirement>() };
+            Reward rew3 = new Reward() { Id = 3, Name = "Straberry 1 Banana 1  Reward_60", Value = 60, Token = true, Priority = 50, RewardRequirements = new List<RewardRequirement>() };
+            Reward rew4 = new Reward() { Id = 4, Name = "Banana x 3 Reward_50", Value = 50, Token = true, Priority = 50, RewardRequirements = new List<RewardRequirement>() };
+            rew1.RewardRequirements.Add(new RewardRequirement() { RewardId = 1, Category = null, Product = "Strawberry", Quantity = 1 });
+            rew2.RewardRequirements.Add(new RewardRequirement() { RewardId = 2, Category = "Fruit", Product = "Strawberry", Quantity = 1 });
+            rew3.RewardRequirements.Add(new RewardRequirement() { RewardId = 3, Category = null, Product = "Strawberry", Quantity = 1 });
+            rew3.RewardRequirements.Add(new RewardRequirement() { RewardId = 3, Category = null, Product = "Banana", Quantity = 1 });
+            rew4.RewardRequirements.Add(new RewardRequirement() { RewardId = 4, Category = null, Product = "Banana", Quantity = 3 });
 
-            eligibleRewards = new List<Rew>();
+            eligibleRewards = new List<Reward>();
             eligibleRewards.AddRange(new[] { rew1, rew2, rew3, rew4 });
 
-            receiptItems = new List<Pur>();
-            receiptItems.Add(new Pur() { Category = "Fruit", Product = "Strawberry", Quantity = 1 });
-            receiptItems.Add(new Pur() { Category = null, Product = "Banana", Quantity = 3 });
+            receiptItems = new List<ReceiptItem>();
+            receiptItems.Add(new ReceiptItem() { Category = "Fruit", Product = "Strawberry", Quantity = 1 });
+            receiptItems.Add(new ReceiptItem() { Category = null, Product = "Banana", Quantity = 3 });
         }
 
-        private static void TestRecords2(out List<Pur> receiptItems, out List<Rew> eligibleRewards)
+        private static void TestRecords2(out List<ReceiptItem> receiptItems, out List<Reward> eligibleRewards)
         {
             /* This test set demonstrates priority and categories */
-            Rew rew1 = new Rew() { Id = 1, Name = "Straberry x 1 Reward_20", Value = 20, Token = true, Priority = 50, RewReq = new List<Req>() };
-            Rew rew2 = new Rew() { Id = 2, Name = "Fruit Category x 1 Reward_10 Free Token", Value = 10, Token = false, Priority = 50, RewReq = new List<Req>() };
-            Rew rew3 = new Rew() { Id = 3, Name = "Straberry 1 Banana 1  Reward_60 Priority_49", Value = 60, Token = true, Priority = 49, RewReq = new List<Req>() };
-            Rew rew4 = new Rew() { Id = 4, Name = "Banana x 3 Reward_50", Value = 50, Token = true, Priority = 50, RewReq = new List<Req>() };
-            rew1.RewReq.Add(new Req() { RewardId = 1, Category = null, Product = "Strawberry", Quantity = 1 });
-            rew2.RewReq.Add(new Req() { RewardId = 2, Category = "Fruit", Product = null, Quantity = 1 });
-            rew3.RewReq.Add(new Req() { RewardId = 3, Category = null, Product = "Strawberry", Quantity = 1 });
-            rew3.RewReq.Add(new Req() { RewardId = 3, Category = null, Product = "Banana", Quantity = 1 });
-            rew4.RewReq.Add(new Req() { RewardId = 4, Category = null, Product = "Banana", Quantity = 3 });
+            Reward rew1 = new Reward() { Id = 1, Name = "Straberry x 1 Reward_20", Value = 20, Token = true, Priority = 50, RewardRequirements = new List<RewardRequirement>() };
+            Reward rew2 = new Reward() { Id = 2, Name = "Fruit Category x 1 Reward_10 Free Token", Value = 10, Token = false, Priority = 50, RewardRequirements = new List<RewardRequirement>() };
+            Reward rew3 = new Reward() { Id = 3, Name = "Straberry 1 Banana 1  Reward_60 Priority_49", Value = 60, Token = true, Priority = 49, RewardRequirements = new List<RewardRequirement>() };
+            Reward rew4 = new Reward() { Id = 4, Name = "Banana x 3 Reward_50", Value = 50, Token = true, Priority = 50, RewardRequirements = new List<RewardRequirement>() };
+            rew1.RewardRequirements.Add(new RewardRequirement() { RewardId = 1, Category = null, Product = "Strawberry", Quantity = 1 });
+            rew2.RewardRequirements.Add(new RewardRequirement() { RewardId = 2, Category = "Fruit", Product = null, Quantity = 1 });
+            rew3.RewardRequirements.Add(new RewardRequirement() { RewardId = 3, Category = null, Product = "Strawberry", Quantity = 1 });
+            rew3.RewardRequirements.Add(new RewardRequirement() { RewardId = 3, Category = null, Product = "Banana", Quantity = 1 });
+            rew4.RewardRequirements.Add(new RewardRequirement() { RewardId = 4, Category = null, Product = "Banana", Quantity = 3 });
 
-            eligibleRewards = new List<Rew>();
+            eligibleRewards = new List<Reward>();
             eligibleRewards.AddRange(new[] { rew1, rew2, rew3, rew4 });
 
-            receiptItems = new List<Pur>();
-            receiptItems.Add(new Pur() { Category = "Fruit", Product = "Strawberry", Quantity = 1 });
-            receiptItems.Add(new Pur() { Category = null, Product = "Banana", Quantity = 3 });
+            receiptItems = new List<ReceiptItem>();
+            receiptItems.Add(new ReceiptItem() { Category = "Fruit", Product = "Strawberry", Quantity = 1 });
+            receiptItems.Add(new ReceiptItem() { Category = null, Product = "Banana", Quantity = 3 });
         }
 
-        private static void TestRecords3(out List<Pur> receiptItems, out List<Rew> eligibleRewards)
+        private static void TestRecords3(out List<ReceiptItem> receiptItems, out List<Reward> eligibleRewards)
         {
             /* This test set demonstrates priority and categories */
-            Rew rew1 = new Rew() { Id = 1, Name = "Fruit x 1 Reward_20", Value = 20, Token = true, Priority = 50, RewReq = new List<Req>() };
-            Rew rew2 = new Rew() { Id = 2, Name = "Strawberry x 1 Reward_10 Free Token", Value = 10, Token = false, Priority = 50, RewReq = new List<Req>() };
-            Rew rew3 = new Rew() { Id = 3, Name = "Strawberry 1 Banana 1  Reward_60 Priority_49", Value = 60, Token = true, Priority = 49, RewReq = new List<Req>() };
-            Rew rew4 = new Rew() { Id = 4, Name = "Banana x 3 Reward_50", Value = 50, Token = true, Priority = 50, RewReq = new List<Req>() };
-            rew1.RewReq.Add(new Req() { RewardId = 1, Category = "Fruit", Product = null, Quantity = 1 });
-            rew2.RewReq.Add(new Req() { RewardId = 2, Category = null, Product = "Strawberry", Quantity = 1 });
-            rew3.RewReq.Add(new Req() { RewardId = 3, Category = null, Product = "Strawberry", Quantity = 1 });
-            rew3.RewReq.Add(new Req() { RewardId = 3, Category = null, Product = "Banana", Quantity = 1 });
-            rew4.RewReq.Add(new Req() { RewardId = 4, Category = null, Product = "Banana", Quantity = 3 });
+            Reward rew1 = new Reward() { Id = 1, Name = "Fruit x 1 Reward_20", Value = 20, Token = true, Priority = 50, RewardRequirements = new List<RewardRequirement>() };
+            Reward rew2 = new Reward() { Id = 2, Name = "Strawberry x 1 Reward_10 Free Token", Value = 10, Token = false, Priority = 50, RewardRequirements = new List<RewardRequirement>() };
+            Reward rew3 = new Reward() { Id = 3, Name = "Strawberry 1 Banana 1  Reward_60 Priority_49", Value = 60, Token = true, Priority = 49, RewardRequirements = new List<RewardRequirement>() };
+            Reward rew4 = new Reward() { Id = 4, Name = "Banana x 3 Reward_50", Value = 50, Token = true, Priority = 50, RewardRequirements = new List<RewardRequirement>() };
+            rew1.RewardRequirements.Add(new RewardRequirement() { RewardId = 1, Category = "Fruit", Product = null, Quantity = 1 });
+            rew2.RewardRequirements.Add(new RewardRequirement() { RewardId = 2, Category = null, Product = "Strawberry", Quantity = 1 });
+            rew3.RewardRequirements.Add(new RewardRequirement() { RewardId = 3, Category = null, Product = "Strawberry", Quantity = 1 });
+            rew3.RewardRequirements.Add(new RewardRequirement() { RewardId = 3, Category = null, Product = "Banana", Quantity = 1 });
+            rew4.RewardRequirements.Add(new RewardRequirement() { RewardId = 4, Category = null, Product = "Banana", Quantity = 3 });
 
-            eligibleRewards = new List<Rew>();
+            eligibleRewards = new List<Reward>();
             eligibleRewards.AddRange(new[] { rew1, rew2, rew3, rew4 });
 
-            receiptItems = new List<Pur>();
-            receiptItems.Add(new Pur() { Category = "Fruit", Product = "Strawberry", Quantity = 1 });
-            receiptItems.Add(new Pur() { Category = null, Product = "Banana", Quantity = 3 });
+            receiptItems = new List<ReceiptItem>();
+            receiptItems.Add(new ReceiptItem() { Category = "Fruit", Product = "Strawberry", Quantity = 1 });
+            receiptItems.Add(new ReceiptItem() { Category = null, Product = "Banana", Quantity = 3 });
         }
 
     }
