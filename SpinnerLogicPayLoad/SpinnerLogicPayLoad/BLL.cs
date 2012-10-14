@@ -76,7 +76,10 @@ namespace SpinnerLogicPayLoad
                 {
                     foreach (var item in rListFilter)
                     {
-                        pList.Where(x => x.Product == item.Product).FirstOrDefault().Quantity -= item.Quantity;
+                        if (item.Product != null)
+                            pList.Where(x => x.Product == item.Product).FirstOrDefault().Quantity -= item.Quantity;
+                        if (item.Category != null)
+                        pList.Where(x => x.Category == item.Category).FirstOrDefault().Quantity -= item.Quantity;
                     }
                 }
             }
