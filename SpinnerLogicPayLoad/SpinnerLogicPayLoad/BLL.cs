@@ -6,8 +6,6 @@ namespace SpinnerLogicPayLoad
 {
     public class BLL
     {
-        Reward _reward;
-        PayLoad _payLoad;
         List<ReceiptItem> _receiptItems;
         List<Reward> _rewardListOrdered;
 
@@ -20,31 +18,27 @@ namespace SpinnerLogicPayLoad
             //Todo: review this
             var rewardIdList = new[] { _rewardListOrdered[0].Id, _rewardListOrdered[1].Id, _rewardListOrdered[2].Id, _rewardListOrdered[3].Id };
 
-            //Outer loop starts here
             foreach (var rewardId in rewardIdList)
             {
                 var rewardListReOrdered = ForwardBackward(_rewardListOrdered, rewardId);
-                _payLoad = new PayLoad();
+                var payLoad = new PayLoad();
 
                 foreach (var reward in rewardListReOrdered)
-                {
-                    _reward = reward;
-                    QualifyReward(rewardId);
+                {                    
+                    QualifyReward(rewardId, payLoad, reward);
                 }
 
-                if (_payLoad.Rewards.Count() > 0)
-                    payLoads.Add(_payLoad);
+                if (payLoad.Rewards.Count() > 0)
+                    payLoads.Add(payLoad);
 
-                //Reset purchased list here
                 _receiptItems = receiptItemsOriginal.Clone() as List<ReceiptItem>;
-
-            } //Outer loop ends here
+            } 
 
             //Return the payload!
             return FindMaxValue(payLoads, x => x.Total, y => y.Priority);
         }
 
-        private void QualifyReward(int initialRewardId)
+        private void QualifyReward(int initialRewardId, PayLoad payLoad, Reward reward)
         {
             //This is the payload.
 
@@ -52,7 +46,7 @@ namespace SpinnerLogicPayLoad
             //required to calculate the best rewards
             //from eligible rewards. 
 
-            var rewardRequirements = _reward.RewardRequirements;
+            var rewardRequirements = reward.RewardRequirements;
 
             var xCategoryList =
                 from r in rewardRequirements
@@ -66,14 +60,14 @@ namespace SpinnerLogicPayLoad
                     .Where(x => r.Product == x.Product && x.Quantity >= r.Quantity)
                 select new { r, p };
 
-            if (xCategoryList.Count() + xProductList.Count() == rewardRequirements.Count() || (_reward.Token == false)) //or if token not required?
+            if (xCategoryList.Count() + xProductList.Count() == rewardRequirements.Count() || (reward.Token == false)) //or if token not required?
             {
-                _payLoad.Id = initialRewardId;
-                _payLoad.Rewards.Add(_reward);
-                _payLoad.Total += _reward.Value;
-                _payLoad.Priority = _reward.Priority;
+                payLoad.Id = initialRewardId;
+                payLoad.Rewards.Add(reward);
+                payLoad.Total += reward.Value;
+                payLoad.Priority = reward.Priority;
 
-                if (_reward.Token)
+                if (reward.Token)
                 {
                     foreach (var item in rewardRequirements)
                     {
