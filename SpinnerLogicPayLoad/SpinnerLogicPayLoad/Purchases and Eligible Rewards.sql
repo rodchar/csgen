@@ -45,7 +45,7 @@ GROUP BY    rr.RewardId
 HAVING      COUNT(p.ProductId) = COUNT(rr.RewardId)
 
 
-/* Get qualified rewards based on categories purchased */
+/* Get eligible rewards based on categories purchased */
 SELECT      rr.RewardId 
 INTO		#EligibleRewardIdsCategories
 FROM        RewardRequirements rr 
