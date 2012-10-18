@@ -1,26 +1,25 @@
+/* This is one half of the code necessary to
+determine rewards for purchased items.
+The other half resides in .Net CSharp. 
+That code takes the eligible rewards from this
+procedure and runs combinations to determine
+best reward value for purchased items.
+*/
+
+/* Only parameter */
 DECLARE @receiptId INT = 1
 
+/* Temp tables */
 IF object_id('tempdb..#purchasedItems') IS NOT NULL
-BEGIN
    DROP TABLE #purchasedItems
-END
-
 IF object_id('tempdb..#EligibleRewardIds') IS NOT NULL
-BEGIN
    DROP TABLE #EligibleRewardIds
-END
-
 IF object_id('tempdb..#EligibleRewardIdsCategories') IS NOT NULL
-BEGIN
    DROP TABLE #EligibleRewardIdsCategories
-END
-
 IF object_id('tempdb..#RequirementsForEligibleRewards') IS NOT NULL
-BEGIN
    DROP TABLE #RequirementsForEligibleRewards
-END
 
-/* Items Purchased and their categories */
+/* Items purchased and their categories */
 SELECT 
 p.Id 'RecItemId'
 , ReceiptId
