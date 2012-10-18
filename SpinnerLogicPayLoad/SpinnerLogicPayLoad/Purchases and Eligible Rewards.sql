@@ -48,7 +48,7 @@ rr.Id 'ReqId'
  FROM RewardRequirements rr
 join ProductsCategories pc 
 on rr.CategoryId = pc.CategoryId
-where pc.ProductId in (1,2,3)
+where pc.ProductId in (SELECT RewardId FROM #EligibleRewardIds)
 
 /* Return the Payload */
 
