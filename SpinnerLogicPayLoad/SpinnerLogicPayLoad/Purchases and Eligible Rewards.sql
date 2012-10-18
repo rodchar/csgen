@@ -34,7 +34,7 @@ ON p.ProductId = pc.ProductId
 WHERE ReceiptId = @receiptId
 
 
-/* Get Qualified Rewards based on products purchased */
+/* Get eligible rewards based on products purchased */
 SELECT      rr.RewardId 
 INTO		#EligibleRewardIds
 FROM        RewardRequirements rr 
@@ -46,7 +46,7 @@ GROUP BY    rr.RewardId
 HAVING      COUNT(p.ProductId) = COUNT(rr.RewardId)
 
 
-/* Get Qualified Rewards based on categories purchased */
+/* Get qualified rewards based on categories purchased */
 SELECT      rr.RewardId 
 INTO		#EligibleRewardIdsCategories
 FROM        RewardRequirements rr 
@@ -90,5 +90,5 @@ WHERE RewardId in (SELECT RewardId FROM #EligibleRewardIdsCategories)
 /* Purchased Items and their categories */
 SELECT * FROM #purchasedItems
 
-/* Eligible Rewards */
+/* Eligible rewards */
 SELECT * FROM #RequirementsForEligibleRewards
