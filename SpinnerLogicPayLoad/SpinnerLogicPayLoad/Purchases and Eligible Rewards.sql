@@ -93,5 +93,7 @@ FROM #purchasedItems
 
 /* Eligible rewards */
 SELECT 
-RewardId, ReqProdId 'ProductId', Quantity, PCCatId 'CategoryId'
- FROM #RequirementsForEligibleRewards
+q.RewardId, q.ReqProdId 'ProductId', q.Quantity, q.PCCatId 'CategoryId'
+, r.Value, r.Priority, r.Token
+ FROM #RequirementsForEligibleRewards q
+ JOIN Reward r on r.Id = q.RewardId
