@@ -87,7 +87,11 @@ WHERE RewardId in (SELECT RewardId FROM #EligibleRewardIdsCategories)
 /* Return the Payload */
 
 /* Purchased Items and their categories */
-SELECT * FROM #purchasedItems
+SELECT
+pProdId 'ProductId', Quantity, PCCatId 'CategoryId'
+FROM #purchasedItems
 
 /* Eligible rewards */
-SELECT * FROM #RequirementsForEligibleRewards
+SELECT 
+RewardId, ReqProdId 'ProductId', Quantity, PCCatId 'CategoryId'
+ FROM #RequirementsForEligibleRewards
