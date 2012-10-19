@@ -63,7 +63,7 @@ rr2.Id 'ReqId'
 , RewardId
 , rr2.ProductId 'ReqProdId'
 , Quantity
-, pc.ProductId 'PCProdId'
+--, pc.ProductId 'PCProdId'
 , pc.CategoryId	'PCCatId'
 INTO #RequirementsForEligibleRewards
 FROM RewardRequirements rr2 
@@ -73,14 +73,14 @@ WHERE RewardId in (SELECT RewardId FROM #EligibleRewardIds)
 /* Select all requirements based on categories */
 INSERT INTO #RequirementsForEligibleRewards
 SELECT 
-rr2.Id 'ReqIdxxxx'
+rr2.Id 'ReqId'
 , RewardId
 , rr2.ProductId 'ReqProdId'
 , Quantity
-, pc.ProductId 'PCProdId'
+--, pc.ProductId 'PCProdId'
 , pc.CategoryId	'PCCatId'
 FROM RewardRequirements rr2 
-LEFT JOIN ProductsCategories pc on rr2.ProductId = pc.ProductId
+LEFT JOIN ProductsCategories pc on rr2.CategoryId = pc.CategoryId
 WHERE RewardId in (SELECT RewardId FROM #EligibleRewardIdsCategories)
 
 
