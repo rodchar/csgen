@@ -32,7 +32,6 @@ LEFT JOIN ProductsCategories pc
 ON p.ProductId = pc.ProductId
 WHERE ReceiptId = @receiptId
 
-
 /* Get eligible rewards based on products purchased */
 SELECT      rr.RewardId 
 INTO		#EligibleRewardIds
@@ -44,7 +43,6 @@ FROM        RewardRequirements rr
 GROUP BY    rr.RewardId 
 HAVING      COUNT(p.ProductId) = COUNT(rr.RewardId)
 
-
 /* Get eligible rewards based on categories purchased */
 SELECT      rr.RewardId 
 INTO		#EligibleRewardIdsCategories
@@ -55,7 +53,6 @@ FROM        RewardRequirements rr
                 AND p.ReceiptId = @receiptId
 GROUP BY    rr.RewardId 
 HAVING      COUNT(p.PCCatId) = COUNT(rr.RewardId)
-
 
 /* Select all requirements based on products */
 SELECT 
@@ -82,7 +79,6 @@ rr2.Id 'ReqId'
 FROM RewardRequirements rr2 
 LEFT JOIN ProductsCategories pc on rr2.CategoryId = pc.CategoryId
 WHERE RewardId in (SELECT RewardId FROM #EligibleRewardIdsCategories)
-
 
 /* Return the Payload */
 
