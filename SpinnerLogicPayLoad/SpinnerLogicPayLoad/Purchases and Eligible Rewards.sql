@@ -92,4 +92,4 @@ SELECT
 q.RewardId, q.ReqProdId 'ProductId', q.Quantity, q.PCCatId 'CategoryId'
 , r.Value, r.Priority, r.Token
  FROM #RequirementsForEligibleRewards q
- JOIN Reward r on r.Id = q.RewardId
+ JOIN Rewards r on r.Id = q.RewardId
