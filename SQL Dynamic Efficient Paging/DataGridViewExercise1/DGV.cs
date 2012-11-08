@@ -120,12 +120,6 @@ namespace DataGridViewExercise1
 
             }
 
-            if (btn.Text == "Search")
-            {
-                FirstPageSettings();
-            }
-
-
             //Before raising event 
 
             if (EventHandlerDelegate != null)
@@ -133,6 +127,11 @@ namespace DataGridViewExercise1
 
             //After raising event 
 
+
+            if (btn.Text == "Search")
+            {
+                FirstPageSettings();
+            }
 
         }
 
@@ -153,14 +152,15 @@ namespace DataGridViewExercise1
 
         private void DGV_Load(object sender, EventArgs e)
         {            
-            dataGridView1.DataSource = DataSource;
+            dataGridView1.DataSource = DataSource;            
             FirstPageSettings();
-        }
+        }        
 
         private void UpdatePageStatus()
         {
             lblPage.Text = string.Format("Page {0} of {1}  ({2} records)", PageNumber, TotalPages, TotalRecords);
             tbPage.Text = PageNumber.ToString();
         }
+        
     }
 }
