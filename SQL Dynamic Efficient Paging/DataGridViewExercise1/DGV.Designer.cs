@@ -36,6 +36,7 @@
             this.btnNext = new System.Windows.Forms.Button();
             this.btnLast = new System.Windows.Forms.Button();
             this.btnSearch = new System.Windows.Forms.Button();
+            this.lblPage = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -50,9 +51,9 @@
             // 
             // btnFirst
             // 
-            this.btnFirst.Location = new System.Drawing.Point(5, 48);
+            this.btnFirst.Location = new System.Drawing.Point(12, 26);
             this.btnFirst.Name = "btnFirst";
-            this.btnFirst.Size = new System.Drawing.Size(75, 23);
+            this.btnFirst.Size = new System.Drawing.Size(50, 23);
             this.btnFirst.TabIndex = 2;
             this.btnFirst.Text = "First";
             this.btnFirst.UseVisualStyleBackColor = true;
@@ -60,23 +61,24 @@
             // 
             // tbSearch
             // 
-            this.tbSearch.Location = new System.Drawing.Point(494, 26);
+            this.tbSearch.Location = new System.Drawing.Point(478, 26);
             this.tbSearch.Name = "tbSearch";
             this.tbSearch.Size = new System.Drawing.Size(100, 20);
             this.tbSearch.TabIndex = 3;
             // 
             // tbPage
             // 
-            this.tbPage.Location = new System.Drawing.Point(177, 50);
+            this.tbPage.Location = new System.Drawing.Point(124, 28);
             this.tbPage.Name = "tbPage";
-            this.tbPage.Size = new System.Drawing.Size(100, 20);
+            this.tbPage.Size = new System.Drawing.Size(39, 20);
             this.tbPage.TabIndex = 4;
+            this.tbPage.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // btnPrev
             // 
-            this.btnPrev.Location = new System.Drawing.Point(91, 48);
+            this.btnPrev.Location = new System.Drawing.Point(68, 26);
             this.btnPrev.Name = "btnPrev";
-            this.btnPrev.Size = new System.Drawing.Size(75, 23);
+            this.btnPrev.Size = new System.Drawing.Size(50, 23);
             this.btnPrev.TabIndex = 5;
             this.btnPrev.Text = "Prev";
             this.btnPrev.UseVisualStyleBackColor = true;
@@ -84,9 +86,9 @@
             // 
             // btnNext
             // 
-            this.btnNext.Location = new System.Drawing.Point(288, 50);
+            this.btnNext.Location = new System.Drawing.Point(169, 26);
             this.btnNext.Name = "btnNext";
-            this.btnNext.Size = new System.Drawing.Size(75, 23);
+            this.btnNext.Size = new System.Drawing.Size(50, 23);
             this.btnNext.TabIndex = 6;
             this.btnNext.Text = "Next";
             this.btnNext.UseVisualStyleBackColor = true;
@@ -94,9 +96,9 @@
             // 
             // btnLast
             // 
-            this.btnLast.Location = new System.Drawing.Point(374, 50);
+            this.btnLast.Location = new System.Drawing.Point(225, 26);
             this.btnLast.Name = "btnLast";
-            this.btnLast.Size = new System.Drawing.Size(75, 23);
+            this.btnLast.Size = new System.Drawing.Size(50, 23);
             this.btnLast.TabIndex = 7;
             this.btnLast.Text = "Last";
             this.btnLast.UseVisualStyleBackColor = true;
@@ -104,7 +106,7 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(600, 23);
+            this.btnSearch.Location = new System.Drawing.Point(584, 23);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(75, 23);
             this.btnSearch.TabIndex = 8;
@@ -112,10 +114,19 @@
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.UserControlClick);
             // 
+            // lblPage
+            // 
+            this.lblPage.AutoSize = true;
+            this.lblPage.Location = new System.Drawing.Point(281, 31);
+            this.lblPage.Name = "lblPage";
+            this.lblPage.Size = new System.Drawing.Size(0, 13);
+            this.lblPage.TabIndex = 9;
+            // 
             // DGV
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.lblPage);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.btnLast);
             this.Controls.Add(this.btnNext);
@@ -126,6 +137,7 @@
             this.Controls.Add(this.dataGridView1);
             this.Name = "DGV";
             this.Size = new System.Drawing.Size(674, 339);
+            this.Load += new System.EventHandler(this.DGV_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -142,5 +154,6 @@
         private System.Windows.Forms.Button btnNext;
         private System.Windows.Forms.Button btnLast;
         private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.Label lblPage;
     }
 }
