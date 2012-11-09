@@ -13,6 +13,7 @@ namespace DataGridViewExercise1
             dgv1.Click += Dgv1Click;
             dgv1.PageNumber = 1;
             dgv1.PageSize = 3;
+            dgv1.SortBy = "ProductName";
 
             LoadDataSource();
         }
@@ -20,7 +21,7 @@ namespace DataGridViewExercise1
         private void LoadDataSource()
         {
             DataSet1 ds = new DataSet1();
-            var dt = Class1.GetData("vwReceiptItemNamesProducts", dgv1.PageSize, dgv1.PageNumber, "ProductName", dgv1.SearchEntry, "ProductName");
+            var dt = Class1.GetData("vwReceiptItemNamesProducts", dgv1.PageSize, dgv1.PageNumber, "ProductName", dgv1.SearchEntry, dgv1.SortBy);
             dgv1.DataSource = dt;
         }
 
@@ -28,7 +29,8 @@ namespace DataGridViewExercise1
         {
             var ctrl = sender as Control;
 
-            if ("Next|Prev|First|Last|Search".IndexOf(ctrl.Text) > -1)
+            if ("Next|Prev|First|Last|Search".IndexOf(ctrl.Text) > -1
+                || e.GetType().Name == "DataGridViewCellMouseEventArgs")
             {
                 LoadDataSource();
             }

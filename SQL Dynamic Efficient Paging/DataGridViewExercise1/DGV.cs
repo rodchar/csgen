@@ -15,6 +15,8 @@ namespace DataGridViewExercise1
         public int TotalPages { get; set; }
         public int TotalRecords { get; set; }
 
+        public string SortBy { get; set; }
+
         public string SearchEntry
         {
             get { return tbSearch.Text; }
@@ -27,13 +29,17 @@ namespace DataGridViewExercise1
             set
             {
                 _dt = value;
+                //All rows will have TP and TR.
+                //Total pages and total records.
+                DataRow dr = _dt.Rows[0];
+
                 int totalPages = 1;
                 int totalRecords = 0;
 
                 if (_dt.Rows.Count > 0)
                 {
-                    int.TryParse(_dt.Rows[0]["TP"].ToString(), out totalPages);
-                    int.TryParse(_dt.Rows[0]["TR"].ToString(), out totalRecords);
+                    int.TryParse(dr["TP"].ToString(), out totalPages);
+                    int.TryParse(dr["TR"].ToString(), out totalRecords);
                 }
 
                 TotalPages = totalPages;
@@ -162,6 +168,58 @@ namespace DataGridViewExercise1
         public DGV()
         {
             InitializeComponent();
+        }        
+
+        private void dataGridView1_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            SortAction(sender, e, "Before");
+
+            //Before raising event 
+
+            if (EventHandlerDelegate != null)
+                EventHandlerDelegate(sender, e);
+
+            //After raising event 
+
+            SortAction(sender, e, "After");
+        }
+
+        private void SortAction(object sender, DataGridViewCellMouseEventArgs e, string beforeOrAfter)
+        {
+            DataGridView dg = sender as DataGridView;
+            int colIndex = e.ColumnIndex;
+            DataGridViewColumnHeaderCell hc = dg.Columns[colIndex].HeaderCell;
+            DataGridViewColumn col = dg.Columns[colIndex];
+
+            if (beforeOrAfter == "Before")
+            {
+                //Set SortBy property.
+                if (hc.SortGlyphDirection == SortOrder.None || SortBy != col.Name)
+                    SortBy = col.Name;
+                else if (SortBy == col.Name)
+                {
+                    SortBy = hc.SortGlyphDirection == SortOrder.Ascending ?
+                     string.Format("{0} DESC", col.Name)
+                     :
+                     col.Name;
+                }
+            }
+
+            if (beforeOrAfter == "After")
+            {
+                //Set sort glymph.
+                if (hc.SortGlyphDirection == SortOrder.None || SortBy != col.Name)
+                    hc.SortGlyphDirection = SortOrder.Ascending;
+                else if (SortBy == col.Name)
+                {
+                    hc.SortGlyphDirection = hc.SortGlyphDirection == SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending;
+
+                    if (hc.SortGlyphDirection == SortOrder.Descending)
+                        SortBy = string.Format("{0} {1}", col.Name, "DESC");
+                    else
+                        SortBy = col.Name;
+                }
+            }
         }
     }
 }
