@@ -8,6 +8,12 @@ namespace DataGridViewExercise1
 {
     public partial class DGV : UserControl
     {
+        private enum SortEventSequence
+        {
+            Before,
+            After
+        }
+
         private DataTable _dt = new DataTable();
 
         public int PageSize { get; set; }
@@ -172,7 +178,7 @@ namespace DataGridViewExercise1
 
         private void dataGridView1_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            SortAction(sender, e, "Before");
+            SortAction(sender, e, SortEventSequence.Before);
 
             //Before raising event 
 
@@ -181,17 +187,17 @@ namespace DataGridViewExercise1
 
             //After raising event 
 
-            SortAction(sender, e, "After");
+            SortAction(sender, e, SortEventSequence.After);
         }
 
-        private void SortAction(object sender, DataGridViewCellMouseEventArgs e, string beforeOrAfter)
+        private void SortAction(object sender, DataGridViewCellMouseEventArgs e, SortEventSequence eventSequence)
         {
             DataGridView dg = sender as DataGridView;
             int colIndex = e.ColumnIndex;
             DataGridViewColumnHeaderCell hc = dg.Columns[colIndex].HeaderCell;
             DataGridViewColumn col = dg.Columns[colIndex];
 
-            if (beforeOrAfter == "Before")
+            if (eventSequence == SortEventSequence.Before)
             {
                 //Set SortBy property.
                 if (hc.SortGlyphDirection == SortOrder.None || SortBy != col.Name)
@@ -205,7 +211,7 @@ namespace DataGridViewExercise1
                 }
             }
 
-            if (beforeOrAfter == "After")
+            if (eventSequence == SortEventSequence.After)
             {
                 //Set sort glymph.
                 if (hc.SortGlyphDirection == SortOrder.None || SortBy != col.Name)
