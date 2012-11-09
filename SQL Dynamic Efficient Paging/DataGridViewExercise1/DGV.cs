@@ -22,7 +22,7 @@ namespace DataGridViewExercise1
         }
 
         public string DataMember { get; set; }
-        
+
         public DataSet1 DataSource
         {
             get { return _ds; }
@@ -54,14 +54,12 @@ namespace DataGridViewExercise1
         private void BindDataGridView()
         {
             dataGridView1.DataSource = DataSource.Tables[DataMember];
-        }        
 
-        private void FirstPageSettings()
-        {
-            tbPage.Text = "1";
-            PageNumber = 1;
-
-            SetPagerStatus(false, false, (TotalPages > 1), (TotalPages > 1));
+            foreach (DataGridViewColumn col in dataGridView1.Columns)
+            {
+                if ("TP|TR|Seq".IndexOf(col.Name) > -1) col.Visible = false;
+                col.SortMode = DataGridViewColumnSortMode.Programmatic;
+            }
         }
 
         // forward the button's click event 
@@ -124,6 +122,14 @@ namespace DataGridViewExercise1
 
         }
 
+        private void FirstPageSettings()
+        {
+            tbPage.Text = "1";
+            PageNumber = 1;
+
+            SetPagerStatus(false, false, (TotalPages > 1), (TotalPages > 1));
+        }
+
         private void SetDatabaseResultsInfo()
         {
             lblPage.Text = string.Format("Page {0} of {1}  ({2} records)", PageNumber, TotalPages, TotalRecords);
@@ -136,11 +142,6 @@ namespace DataGridViewExercise1
             btnPrev.Enabled = prev;
             btnNext.Enabled = next;
             btnLast.Enabled = last;
-        }
-
-        public DGV()
-        {
-            InitializeComponent();
         }
 
         // define an event handler delegate which basically re-uses an existing
@@ -158,6 +159,11 @@ namespace DataGridViewExercise1
             }
             // this is the equivalent of Click -= new EventHandler(...)
             remove { if (EventHandlerDelegate != null) EventHandlerDelegate -= value; }
+        }
+
+        public DGV()
+        {
+            InitializeComponent();
         }
     }
 }
