@@ -8,7 +8,7 @@ namespace DataGridViewExercise1
 {
     public partial class DGV : UserControl
     {
-        private DataSet1 _ds = new DataSet1();
+        private DataTable _dt = new DataTable();
 
         public int PageSize { get; set; }
         public int PageNumber { get; set; }
@@ -21,21 +21,19 @@ namespace DataGridViewExercise1
             set { tbSearch.Text = value; }
         }
 
-        public string DataMember { get; set; }
-
-        public DataSet1 DataSource
+        public DataTable DataSource
         {
-            get { return _ds; }
+            get { return _dt; }
             set
             {
-                _ds = value;
+                _dt = value;
                 int totalPages = 1;
                 int totalRecords = 0;
 
-                if (_ds.Tables[DataMember].Rows.Count > 0)
+                if (_dt.Rows.Count > 0)
                 {
-                    int.TryParse(_ds.Tables[DataMember].Rows[0]["TP"].ToString(), out totalPages);
-                    int.TryParse(_ds.Tables[DataMember].Rows[0]["TR"].ToString(), out totalRecords);
+                    int.TryParse(_dt.Rows[0]["TP"].ToString(), out totalPages);
+                    int.TryParse(_dt.Rows[0]["TR"].ToString(), out totalRecords);
                 }
 
                 TotalPages = totalPages;
@@ -53,7 +51,7 @@ namespace DataGridViewExercise1
 
         private void BindDataGridView()
         {
-            dataGridView1.DataSource = DataSource.Tables[DataMember];
+            dataGridView1.DataSource = DataSource;
 
             foreach (DataGridViewColumn col in dataGridView1.Columns)
             {

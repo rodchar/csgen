@@ -21,9 +21,7 @@ namespace DataGridViewExercise1
         {
             DataSet1 ds = new DataSet1();
             var dt = Class1.GetData("vwReceiptItemNamesProducts", dgv1.PageSize, dgv1.PageNumber, "ProductName", dgv1.SearchEntry, "ProductName");
-            ds.ReceiptItemNamesProducts.Merge(dt);
-            dgv1.DataMember = ds.ReceiptItemNamesProducts.ToString();
-            dgv1.DataSource = ds;
+            dgv1.DataSource = dt;
         }
 
         void Dgv1Click(object sender, EventArgs e)
