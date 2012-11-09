@@ -22,6 +22,7 @@ namespace DataGridViewExercise1
         public int TotalRecords { get; set; }
 
         public string SortBy { get; set; }
+        private DataGridViewColumnHeaderCell _hc;
 
         public string SearchEntry
         {
@@ -64,6 +65,10 @@ namespace DataGridViewExercise1
         private void BindDataGridView()
         {
             dataGridView1.DataSource = DataSource;
+            
+            //TODO: Serialize/Deserialize method.
+            if (_hc != null)
+                dataGridView1.Columns[_hc.ColumnIndex].HeaderCell.SortGlyphDirection = _hc.SortGlyphDirection;
 
             foreach (DataGridViewColumn col in dataGridView1.Columns)
             {
@@ -214,17 +219,23 @@ namespace DataGridViewExercise1
             if (eventSequence == SortEventSequence.After)
             {
                 //Set sort glymph.
-                if (hc.SortGlyphDirection == SortOrder.None || SortBy != col.Name)
+                if (hc.SortGlyphDirection == SortOrder.None && !SortBy.Contains(" DESC") || SortBy!= col.Name )
                     hc.SortGlyphDirection = SortOrder.Ascending;
                 else if (SortBy == col.Name)
                 {
                     hc.SortGlyphDirection = hc.SortGlyphDirection == SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending;
-
-                    if (hc.SortGlyphDirection == SortOrder.Descending)
-                        SortBy = string.Format("{0} {1}", col.Name, "DESC");
-                    else
-                        SortBy = col.Name;
                 }
+
+                //TODO: Maybe not needed. I'm too tired to think right now 00:49 11/9/2012
+                //if (hc.SortGlyphDirection == SortOrder.Descending)
+                //    SortBy = string.Format("{0} {1}", col.Name, "DESC");
+                //else
+                //    SortBy = col.Name;
+
+                _hc = hc; //TODO: Serialize/Deserialize method.
+                //http://www.jonasjohn.de/snippets/csharp/xmlserializer-example.htm
+                //Try to use memory stream instead of file stream.
+                //Also, try to create an extension method.
             }
         }
     }
