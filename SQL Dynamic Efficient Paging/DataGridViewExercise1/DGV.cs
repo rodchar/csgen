@@ -22,7 +22,7 @@ namespace DataGridViewExercise1
         public int TotalRecords { get; set; }
 
         public string SortBy { get; set; }
-        private DataGridViewColumnHeaderCell _hc;
+        private DataGridViewColumnHeaderCellCustom _hc;
 
         public string SearchEntry
         {
@@ -65,8 +65,7 @@ namespace DataGridViewExercise1
         private void BindDataGridView()
         {
             dataGridView1.DataSource = DataSource;
-            
-            //TODO: Serialize/Deserialize method.
+                        
             if (_hc != null)
                 dataGridView1.Columns[_hc.ColumnIndex].HeaderCell.SortGlyphDirection = _hc.SortGlyphDirection;
 
@@ -205,38 +204,70 @@ namespace DataGridViewExercise1
             if (eventSequence == SortEventSequence.Before)
             {
                 //Set SortBy property.
-                if (hc.SortGlyphDirection == SortOrder.None || SortBy != col.Name)
-                    SortBy = col.Name;
-                else if (SortBy == col.Name)
+                if (hc.SortGlyphDirection == SortOrder.None)
                 {
-                    SortBy = hc.SortGlyphDirection == SortOrder.Ascending ?
-                     string.Format("{0} DESC", col.Name)
-                     :
-                     col.Name;
+                    SortBy = col.Name;
                 }
+
+                else if (col.Name == SortBy)
+                {
+                    SortBy = string.Format("{0} DESC", col.Name);
+                }
+
+                else if (col.Name != SortBy && !SortBy.Contains("DESC"))
+                {
+                    SortBy = col.Name;
+                }
+
+                else if (SortBy.Contains("DESC"))
+                {
+                    SortBy = col.Name;
+                }
+
             }
 
             if (eventSequence == SortEventSequence.After)
             {
                 //Set sort glymph.
-                if (hc.SortGlyphDirection == SortOrder.None && !SortBy.Contains(" DESC") || SortBy!= col.Name )
-                    hc.SortGlyphDirection = SortOrder.Ascending;
-                else if (SortBy == col.Name)
+                if (hc.SortGlyphDirection == SortOrder.None)
                 {
-                    hc.SortGlyphDirection = hc.SortGlyphDirection == SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending;
+                    hc.SortGlyphDirection = SortOrder.Ascending;
                 }
 
-                //TODO: Maybe not needed. I'm too tired to think right now 00:49 11/9/2012
-                //if (hc.SortGlyphDirection == SortOrder.Descending)
-                //    SortBy = string.Format("{0} {1}", col.Name, "DESC");
-                //else
-                //    SortBy = col.Name;
+                else if (col.Name != SortBy && !SortBy.Contains("DESC"))
+                {
+                    hc.SortGlyphDirection = SortOrder.Ascending;
+                }
 
-                _hc = hc; //TODO: Serialize/Deserialize method.
-                //http://www.jonasjohn.de/snippets/csharp/xmlserializer-example.htm
-                //Try to use memory stream instead of file stream.
-                //Also, try to create an extension method.
+                else if (col.Name == SortBy)
+                {
+                    hc.SortGlyphDirection = SortOrder.Ascending;
+                }
+
+                else if (SortBy.Contains("DESC"))
+                {
+                    hc.SortGlyphDirection = SortOrder.Descending;
+                }
+                
             }
+
+            _hc = Clone(hc);
+        }
+
+        public static DataGridViewColumnHeaderCellCustom Clone(DataGridViewColumnHeaderCell hc)
+        {
+            var toReturn = new DataGridViewColumnHeaderCellCustom();
+            toReturn.ColumnIndex = hc.ColumnIndex;
+            toReturn.SortGlyphDirection = hc.SortGlyphDirection;
+            return toReturn;
+            
         }
     }
+
+    public class DataGridViewColumnHeaderCellCustom 
+    {
+        public int ColumnIndex { get; set; }
+        public SortOrder SortGlyphDirection { get; set; }
+
+    }    
 }
