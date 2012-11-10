@@ -201,54 +201,25 @@ namespace DataGridViewExercise1
             DataGridViewColumnHeaderCell hc = dg.Columns[colIndex].HeaderCell;
             DataGridViewColumn col = dg.Columns[colIndex];
 
-            if (eventSequence == SortEventSequence.Before)
+            if (hc.SortGlyphDirection == SortOrder.None)
             {
-                //Set SortBy property.
-                if (hc.SortGlyphDirection == SortOrder.None)
-                {
-                    SortBy = col.Name;
-                }
-
-                else if (col.Name == SortBy)
-                {
-                    SortBy = string.Format("{0} DESC", col.Name);
-                }
-
-                else if (col.Name != SortBy && !SortBy.Contains("DESC"))
-                {
-                    SortBy = col.Name;
-                }
-
-                else if (SortBy.Contains("DESC"))
-                {
-                    SortBy = col.Name;
-                }
-
+                if (eventSequence == SortEventSequence.Before) SortBy = col.Name;
+                if (eventSequence == SortEventSequence.After) hc.SortGlyphDirection = SortOrder.Ascending;
             }
-
-            if (eventSequence == SortEventSequence.After)
+            else if (col.Name == SortBy)
             {
-                //Set sort glymph.
-                if (hc.SortGlyphDirection == SortOrder.None)
-                {
-                    hc.SortGlyphDirection = SortOrder.Ascending;
-                }
-
-                else if (col.Name != SortBy && !SortBy.Contains("DESC"))
-                {
-                    hc.SortGlyphDirection = SortOrder.Ascending;
-                }
-
-                else if (col.Name == SortBy)
-                {
-                    hc.SortGlyphDirection = SortOrder.Ascending;
-                }
-
-                else if (SortBy.Contains("DESC"))
-                {
-                    hc.SortGlyphDirection = SortOrder.Descending;
-                }
-                
+                if (eventSequence == SortEventSequence.Before) SortBy = string.Format("{0} DESC", col.Name);
+                if (eventSequence == SortEventSequence.After) hc.SortGlyphDirection = SortOrder.Ascending;
+            }
+            else if (col.Name != SortBy && !SortBy.Contains("DESC"))
+            {
+                if (eventSequence == SortEventSequence.Before) SortBy = col.Name;
+                if (eventSequence == SortEventSequence.After) hc.SortGlyphDirection = SortOrder.Ascending;
+            }
+            else if (SortBy.Contains("DESC"))
+            {
+                if (eventSequence == SortEventSequence.Before) SortBy = col.Name;
+                if (eventSequence == SortEventSequence.After) hc.SortGlyphDirection = SortOrder.Descending;
             }
 
             _hc = Clone(hc);
@@ -260,7 +231,6 @@ namespace DataGridViewExercise1
             toReturn.ColumnIndex = hc.ColumnIndex;
             toReturn.SortGlyphDirection = hc.SortGlyphDirection;
             return toReturn;
-            
         }
     }
 
