@@ -201,7 +201,8 @@ namespace DataGridViewExercise1
             DataGridViewColumnHeaderCell hc = dg.Columns[colIndex].HeaderCell;
             DataGridViewColumn col = dg.Columns[colIndex];
 
-            if (hc.SortGlyphDirection == SortOrder.None)
+            if (hc.SortGlyphDirection == SortOrder.None 
+                || (col.Name != SortBy && !SortBy.Contains("DESC")))
             {
                 if (eventSequence == SortEventSequence.Before) SortBy = col.Name;
                 if (eventSequence == SortEventSequence.After) hc.SortGlyphDirection = SortOrder.Ascending;
@@ -210,12 +211,7 @@ namespace DataGridViewExercise1
             {
                 if (eventSequence == SortEventSequence.Before) SortBy = string.Format("{0} DESC", col.Name);
                 if (eventSequence == SortEventSequence.After) hc.SortGlyphDirection = SortOrder.Ascending;
-            }
-            else if (col.Name != SortBy && !SortBy.Contains("DESC"))
-            {
-                if (eventSequence == SortEventSequence.Before) SortBy = col.Name;
-                if (eventSequence == SortEventSequence.After) hc.SortGlyphDirection = SortOrder.Ascending;
-            }
+            }            
             else if (SortBy.Contains("DESC"))
             {
                 if (eventSequence == SortEventSequence.Before) SortBy = col.Name;
