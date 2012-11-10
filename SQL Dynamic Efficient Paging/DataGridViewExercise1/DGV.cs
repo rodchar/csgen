@@ -38,12 +38,14 @@ namespace DataGridViewExercise1
                 _dt = value;
                 //All rows will have TP and TR.
                 //Total pages and total records.
-                DataRow dr = _dt.Rows[0];
+                DataRow dr = null;
+                if (_dt.Rows.Count > 0)
+                    dr = _dt.Rows[0];
 
                 int totalPages = 1;
                 int totalRecords = 0;
 
-                if (_dt.Rows.Count > 0)
+                if (dr != null)
                 {
                     int.TryParse(dr["TP"].ToString(), out totalPages);
                     int.TryParse(dr["TR"].ToString(), out totalRecords);
@@ -54,12 +56,6 @@ namespace DataGridViewExercise1
                 SetDatabaseResultsInfo();
                 BindDataGridView();
             }
-        }
-
-        private void DGV_Load(object sender, EventArgs e)
-        {
-            BindDataGridView();
-            FirstPageSettings();
         }
 
         private void BindDataGridView()
@@ -140,6 +136,10 @@ namespace DataGridViewExercise1
         {
             tbPage.Text = "1";
             PageNumber = 1;
+
+            //Clear sort related settings.
+            _hc = null; 
+            SortBy = string.Empty;
 
             SetPagerStatus(false, false, (TotalPages > 1), (TotalPages > 1));
         }
@@ -231,6 +231,11 @@ namespace DataGridViewExercise1
             toReturn.ColumnIndex = hc.ColumnIndex;
             toReturn.SortGlyphDirection = hc.SortGlyphDirection;
             return toReturn;
+        }
+
+        private void DGV_Load(object sender, EventArgs e)
+        {
+            FirstPageSettings();
         }
     }
 
