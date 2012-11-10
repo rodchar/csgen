@@ -7,6 +7,7 @@ namespace DataGridViewExercise1
 {
     public partial class Form1 : Form
     {
+        const string SEARCH_FIELD = "ProductName";
         const string DEFAULT_SORT = "ProductName";
         const int PAGE_SIZE = 3;
 
@@ -28,7 +29,7 @@ namespace DataGridViewExercise1
             if (string.IsNullOrEmpty(dgv1.SortBy)) dgv1.SortBy = DEFAULT_SORT;
 
             DataSet1 ds = new DataSet1();
-            var dt = Class1.GetData("vwReceiptItemNamesProducts", dgv1.PageSize, dgv1.PageNumber, "ProductName", dgv1.SearchEntry, dgv1.SortBy);
+            var dt = Class1.GetData("vwReceiptItemNamesProducts", dgv1.PageSize, dgv1.PageNumber, SEARCH_FIELD, dgv1.SearchEntry, dgv1.SortBy);
             dgv1.DataSource = dt;
         }
 
