@@ -20,7 +20,7 @@ namespace DataGridViewExercise1
         public int PageNumber { get; set; }
         public int TotalPages { get; set; }
         public int TotalRecords { get; set; }
-
+        public int RowIdSelected { get; set; }
         public string SortBy { get; set; }
         private DataGridViewColumnHeaderCellCustom _hc;
 
@@ -67,7 +67,7 @@ namespace DataGridViewExercise1
 
             foreach (DataGridViewColumn col in dataGridView1.Columns)
             {
-                if ("TP|TR|Seq".IndexOf(col.Name) > -1) col.Visible = false;
+                if ("TP|TR|Seq|Id".IndexOf(col.Name) > -1) col.Visible = false;
                 col.SortMode = DataGridViewColumnSortMode.Programmatic;
             }
         }
@@ -227,6 +227,21 @@ namespace DataGridViewExercise1
             toReturn.ColumnIndex = hc.ColumnIndex;
             toReturn.SortGlyphDirection = hc.SortGlyphDirection;
             return toReturn;
+        }
+
+        private void dataGridView1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            //Set the record id found on row selected and raise event.
+            const int ID_COLUMN = 3; //First 3 columns are meta data coming from database.
+            int Id = 0;
+            int.TryParse(dataGridView1.Rows[e.RowIndex].Cells[ID_COLUMN].Value.ToString(), out Id);
+            
+            RowIdSelected = Id;
+
+            DataGridViewCellEventArgs args = new DataGridViewCellEventArgs(e.ColumnIndex, e.RowIndex);
+            
+            if (EventHandlerDelegate != null)
+                EventHandlerDelegate(sender, args);
         }
 
         private void DGV_Load(object sender, EventArgs e)

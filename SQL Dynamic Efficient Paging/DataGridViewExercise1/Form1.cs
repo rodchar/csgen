@@ -7,8 +7,9 @@ namespace DataGridViewExercise1
 {
     public partial class Form1 : Form
     {
-        const string SEARCH_FIELD = "ProductName";
-        const string DEFAULT_SORT = "ProductName";
+        const string TABLE_NAME = "Products";
+        const string SEARCH_FIELD = "Name";
+        const string DEFAULT_SORT = "Name";
         const int PAGE_SIZE = 3;
 
         public Form1()
@@ -29,7 +30,7 @@ namespace DataGridViewExercise1
             if (string.IsNullOrEmpty(dgv1.SortBy)) dgv1.SortBy = DEFAULT_SORT;
 
             DataSet1 ds = new DataSet1();
-            var dt = Class1.GetData("vwReceiptItemNamesProducts", dgv1.PageSize, dgv1.PageNumber, SEARCH_FIELD, dgv1.SearchEntry, dgv1.SortBy);
+            var dt = Class1.GetData(TABLE_NAME, dgv1.PageSize, dgv1.PageNumber, SEARCH_FIELD, dgv1.SearchEntry, dgv1.SortBy);
             dgv1.DataSource = dt;
         }
 
@@ -37,10 +38,16 @@ namespace DataGridViewExercise1
         {
             var ctrl = sender as Control;
 
-            if ("Next|Prev|First|Last|Search".IndexOf(ctrl.Text) > -1
+            if (ctrl.Text != string.Empty && "Next|Prev|First|Last|Search".IndexOf(ctrl.Text) > -1
                 || e.GetType().Name == "DataGridViewCellMouseEventArgs")
-            {                
+            {
                 LoadDataSource();
+            }
+
+            if (e.GetType().Name == "DataGridViewCellEventArgs")
+            {
+                //This event means a row was selected by double-click.
+                MessageBox.Show(dgv1.RowIdSelected.ToString());
             }
 
         }
