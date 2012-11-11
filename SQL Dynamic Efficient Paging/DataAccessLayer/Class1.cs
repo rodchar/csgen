@@ -32,6 +32,7 @@ namespace DataAccessLayer
 DECLARE	@page_size INT = {1};
 DECLARE @page_nbr INT = {2};
 IF object_id('tempdb..#Payload') IS NOT NULL DROP TABLE #Payload;
+IF (@page_nbr = 0) SELECT @page_nbr = 1;
 
 SELECT 0 as 'TR', 0 as 'TP',  
 ROW_NUMBER() OVER ( ORDER BY {3} ) AS 'Seq'	

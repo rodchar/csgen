@@ -16,8 +16,7 @@ namespace DataGridViewExercise1
         {
             InitializeComponent();
             dgv1.Click += Dgv1Click;
-            
-            dgv1.PageNumber = 1;
+                        
             dgv1.PageSize = PAGE_SIZE;
             dgv1.SortBy = DEFAULT_SORT;
 
