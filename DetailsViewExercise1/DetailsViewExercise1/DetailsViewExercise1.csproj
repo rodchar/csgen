@@ -51,12 +51,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataSet1.xsd</DependentUpon>
     </Compile>
-    <Compile Include="ucDetailsView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="DetailsView_uc.Designer.cs">
-      <DependentUpon>ucDetailsView.cs</DependentUpon>
-    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -65,9 +59,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="DetailsView_uc.resx">
-      <DependentUpon>ucDetailsView.cs</DependentUpon>
-    </EmbeddedResource>
+    <Compile Include="ucDetailView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ucDetailView.Designer.cs">
+      <DependentUpon>ucDetailView.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -80,6 +77,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ucDetailView.resx">
+      <DependentUpon>ucDetailView.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="DataSet1.xsc">
       <DependentUpon>DataSet1.xsd</DependentUpon>
     </None>

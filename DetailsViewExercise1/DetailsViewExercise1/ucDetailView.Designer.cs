@@ -1,6 +1,6 @@
 ﻿namespace DetailsViewExercise1
 {
-    partial class DetailsView_uc
+    partial class ucDetailView
     {
         /// <summary> 
         /// Required designer variable.
@@ -30,13 +30,12 @@
         {
             this.SuspendLayout();
             // 
-            // DetailsView_uc
+            // ucDetailView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Name = "DetailsView_uc";
-            this.Size = new System.Drawing.Size(534, 287);
-            this.Load += new System.EventHandler(this.DetailsView_uc_Load);
+            this.Name = "ucDetailView";
+            this.Load += new System.EventHandler(this.ucDetailView_Load);
             this.ResumeLayout(false);
 
         }

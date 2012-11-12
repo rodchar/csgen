@@ -28,19 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.detailsView_uc1 = new DetailsViewExercise1.DetailsView_uc();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.ucDetailView1 = new DetailsViewExercise1.ucDetailView();
             this.SuspendLayout();
-            // 
-            // detailsView_uc1
-            // 
-            this.detailsView_uc1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.detailsView_uc1.Location = new System.Drawing.Point(0, 0);
-            this.detailsView_uc1.Name = "detailsView_uc1";
-            this.detailsView_uc1.Size = new System.Drawing.Size(606, 287);
-            this.detailsView_uc1.SpecialInstuctions = null;
-            this.detailsView_uc1.TabIndex = 0;
             // 
             // btnSave
             // 
@@ -60,14 +51,24 @@
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
+            // ucDetailView2
+            // 
+            this.ucDetailView1.ColumnNames = null;
+            this.ucDetailView1.DataRow1 = null;
+            this.ucDetailView1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.ucDetailView1.Location = new System.Drawing.Point(0, 0);
+            this.ucDetailView1.Name = "ucDetailView2";
+            this.ucDetailView1.Size = new System.Drawing.Size(606, 314);
+            this.ucDetailView1.TabIndex = 3;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(606, 371);
+            this.Controls.Add(this.ucDetailView1);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.detailsView_uc1);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
@@ -76,9 +77,10 @@
 
         #endregion
 
-        private DetailsView_uc detailsView_uc1;
+        
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnCancel;
+        private ucDetailView ucDetailView1;
     }
 }
 
