@@ -25,7 +25,8 @@ namespace DetailsViewExercise1
             string queryString = string.Format(
             @"
 
-             SELECT * FROM {0} WHERE CustomerID=@search;
+            SELECT * FROM {0} WHERE CustomerID=@search;
+
             ",TABLE_NAME);
 
             DataTable dt = GetDatabaseRecords(queryString, RECORD_ID);
