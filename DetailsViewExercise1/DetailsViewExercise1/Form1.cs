@@ -17,23 +17,11 @@ namespace DetailsViewExercise1
         public Form1()
         {
             InitializeComponent();
-
-            //detailsView_uc1.ColumnNames = new List<string>();
-            //detailsView_uc1.ColumnNames.Add("Id");
-            //detailsView_uc1.ColumnNames.Add("Name");
-
             ucDetailView1.DataRow1 = GetRecord();
         }
 
         private DataRow GetRecord()
         {
-            //DataSet1.dtProductDataTable dt = new DataSet1.dtProductDataTable();
-            //DataSet1.dtProductRow dr = dt.NewdtProductRow();
-            //dr.Id = 1;
-            //dr.Name = "WidgetA";
-            //dt.Rows.Add(dr);
-            //return dr;
-
             string queryString = string.Format(
             @"
 
