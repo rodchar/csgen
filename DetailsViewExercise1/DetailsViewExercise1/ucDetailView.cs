@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
 using System.Data;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace DetailsViewExercise1
@@ -84,5 +80,15 @@ namespace DetailsViewExercise1
 
             this.Controls.Add(table);
         }
+    }
+
+    public class ColumnMetaData
+    {
+        public string FieldName { get; set; }
+        public string HeaderName { get; set; }
+        public int ColumnPosition { get; set; }
+        public int RowPosition { get; set; }
+        public int ResultSetIndex { get; set; }
+        public string ControlType { get; set; }
     }
 }
