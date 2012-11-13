@@ -25,9 +25,10 @@ namespace DetailsViewExercise1
             string queryString = string.Format(
             @"
 
+--Detail Row
 SELECT * FROM {0} WHERE CustomerID=@search;
             
--- Pull in Layout table here based on Table and Field
+--Supporting Data for detail page.
 DECLARE @tableName NVARCHAR(50) = 'Customers'
 DECLARE @stmt NVARCHAR(MAX);
 
@@ -69,6 +70,11 @@ DEALLOCATE @SqlStatementCursor
         private static List<DataTable> GetDatabaseRecords(string queryString, string searchString)
         {
             List<DataTable> list = new List<DataTable>();
+
+            //Possible result sets that are returned from database.
+            //1. Detail row information
+            //2. Meta table about special fields
+            //3. DropDownList result sets
 
             using (var connection = new SqlConnection(ConnectionString))
             {

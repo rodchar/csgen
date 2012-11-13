@@ -1,3 +1,7 @@
+/*
+http://www.codeproject.com/Tips/277847/How-to-use-Cursor-in-Sql
+*/
+
 DECLARE @tableName NVARCHAR(50) = 'Customers'
 DECLARE @stmt NVARCHAR(MAX);
 
