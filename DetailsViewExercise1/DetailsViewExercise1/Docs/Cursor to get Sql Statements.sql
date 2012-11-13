@@ -1,5 +1,5 @@
-DECLARE @stmt NVARCHAR(MAX);
 DECLARE @tableName NVARCHAR(50) = 'Customers'
+DECLARE @stmt NVARCHAR(MAX);
 
 SELECT * FROM SpecialTable1 WHERE TableName = @tableName;
 
@@ -9,15 +9,15 @@ FOR
 SELECT SqlStatements
 FROM SpecialTable1 WHERE TableName = @tableName;
 OPEN @SqlStatementCursor
-FETCH NEXT FROM @SqlStatementCursor
-INTO @stmt
-WHILE @@FETCH_STATUS = 0
-BEGIN
+	FETCH NEXT FROM @SqlStatementCursor
+	INTO @stmt
+	WHILE @@FETCH_STATUS = 0
+	BEGIN
 
-EXEC (@stmt)
+		EXEC (@stmt)
 
-FETCH NEXT FROM @SqlStatementCursor
-INTO @stmt
-END
+		FETCH NEXT FROM @SqlStatementCursor
+		INTO @stmt
+	END
 CLOSE @SqlStatementCursor
 DEALLOCATE @SqlStatementCursor

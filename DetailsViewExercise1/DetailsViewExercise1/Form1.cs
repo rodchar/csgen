@@ -25,12 +25,34 @@ namespace DetailsViewExercise1
             string queryString = string.Format(
             @"
 
-            SELECT * FROM {0} WHERE CustomerID=@search;
+SELECT * FROM {0} WHERE CustomerID=@search;
             
-            -- Pull in Layout table here based on Table and Field
-            SELECT * FROM Cities;
+-- Pull in Layout table here based on Table and Field
+DECLARE @tableName NVARCHAR(50) = 'Customers'
+DECLARE @stmt NVARCHAR(MAX);
+
+SELECT * FROM SpecialTable1 WHERE TableName = @tableName;
+
+DECLARE @SqlStatementCursor CURSOR
+SET @SqlStatementCursor = CURSOR FAST_FORWARD
+FOR
+SELECT SqlStatements
+FROM SpecialTable1 WHERE TableName = @tableName;
+OPEN @SqlStatementCursor
+    FETCH NEXT FROM @SqlStatementCursor
+    INTO @stmt
+    WHILE @@FETCH_STATUS = 0
+    BEGIN
+
+        EXEC (@stmt)
+
+        FETCH NEXT FROM @SqlStatementCursor
+        INTO @stmt
+    END
+CLOSE @SqlStatementCursor
+DEALLOCATE @SqlStatementCursor
             
-            ",TABLE_NAME);
+            ", TABLE_NAME);
 
             List<DataTable> list = GetDatabaseRecords(queryString, RECORD_ID);
 
