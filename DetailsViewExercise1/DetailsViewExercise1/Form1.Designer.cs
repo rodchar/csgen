@@ -51,10 +51,10 @@
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
-            // ucDetailView2
+            // ucDetailView1
             // 
             this.ucDetailView1.ColumnNames = null;
-            this.ucDetailView1.DataRow1 = null;
+            this.ucDetailView1.DataSource = null;
             this.ucDetailView1.Dock = System.Windows.Forms.DockStyle.Top;
             this.ucDetailView1.Location = new System.Drawing.Point(0, 0);
             this.ucDetailView1.Name = "ucDetailView2";

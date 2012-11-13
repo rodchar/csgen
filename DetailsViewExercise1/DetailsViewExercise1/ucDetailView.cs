@@ -16,7 +16,8 @@ namespace DetailsViewExercise1
             InitializeComponent();
         }
 
-        public DataRow DataRow1 { get; set; }
+        //First row of first table is detail row.
+        public List<DataTable> DataSource { get; set; }
 
         public List<string> ColumnNames { get; set; }
 
@@ -38,7 +39,8 @@ namespace DetailsViewExercise1
             //Switch on type
             //case most:
 
-            int curCol = 1;            
+            int curCol = 1;                 
+            DataRow detailRow = DataSource[0].Rows[0];
 
             for (int i = 0; i < ColumnNames.Count; i++)
             {
@@ -47,7 +49,7 @@ namespace DetailsViewExercise1
                 //http://stackoverflow.com/a/2557943/139698
                 label1.Text = ColumnNames[i];
                 TextBox textbox1 = new TextBox();
-                textbox1.Text = DataRow1[i].ToString();
+                textbox1.Text = detailRow[i].ToString();
 
                 table.Controls.Add(label1, curCol, i);
                 table.Controls.Add(textbox1, curCol + 1, i);

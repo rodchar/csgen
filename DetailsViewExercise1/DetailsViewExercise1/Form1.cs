@@ -17,33 +17,36 @@ namespace DetailsViewExercise1
         public Form1()
         {
             InitializeComponent();
-            ucDetailView1.DataRow1 = GetRecord();
+            ucDetailView1.DataSource = GetRecord();
         }
 
-        private DataRow GetRecord()
+        private List<DataTable> GetRecord()
         {
             string queryString = string.Format(
             @"
 
             SELECT * FROM {0} WHERE CustomerID=@search;
-
+            
+            -- Pull in Layout table here based on Table and Field
+            SELECT * FROM Cities;
+            
             ",TABLE_NAME);
 
-            DataTable dt = GetDatabaseRecords(queryString, RECORD_ID);
+            List<DataTable> list = GetDatabaseRecords(queryString, RECORD_ID);
 
             ucDetailView1.ColumnNames = new List<string>();
 
-            foreach (DataColumn item in dt.Columns)
+            foreach (DataColumn item in list[0].Columns)
             {
                 ucDetailView1.ColumnNames.Add(item.ColumnName);
             }
-            
-            return dt.Rows[0];
+
+            return list;
         }
 
-        private static DataTable GetDatabaseRecords(string queryString, string searchString)
+        private static List<DataTable> GetDatabaseRecords(string queryString, string searchString)
         {
-            var dt = new DataTable();
+            List<DataTable> list = new List<DataTable>();
 
             using (var connection = new SqlConnection(ConnectionString))
             {
@@ -55,11 +58,18 @@ namespace DetailsViewExercise1
                 try
                 {
                     connection.Open();
-                    SqlDataReader reader = command.ExecuteReader();
 
-                    dt.Load(reader);
-
-                    reader.Close();
+                    //DataTable.Load automatically advances the reader to the next result. 
+                    //http://stackoverflow.com/a/11362847/139698
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (!reader.IsClosed)
+                        {
+                            var dt = new DataTable();
+                            dt.Load(reader);
+                            list.Add(dt);
+                        }
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -67,7 +77,7 @@ namespace DetailsViewExercise1
                 }
             }
 
-            return dt;
+            return list;
         }
     }
 }
