@@ -59,9 +59,30 @@ DEALLOCATE @SqlStatementCursor
 
             ucDetailView1.ColumnNames = new List<string>();
 
+            //How do I get column names to print in this C# program?
+            //http://stackoverflow.com/a/2557943/139698
             foreach (DataColumn item in list[0].Columns)
             {
                 ucDetailView1.ColumnNames.Add(item.ColumnName);
+            }
+
+            List<ColumnMetaData> meta = new List<ColumnMetaData>();
+
+            DataTable dt1 = list[1];
+            dt1.PrimaryKey = new DataColumn[] { dt1.Columns["FieldName"] };
+
+            foreach (DataRow dr in dt1.Rows)
+            {
+                ColumnMetaData c = new ColumnMetaData();
+                c.FieldName = dr["FieldName"].ToString();
+                int colPos = 0;
+                int.TryParse(dr["ColumnPosition"].ToString(), out colPos);
+                c.ColumnPosition = colPos;
+                int rowPos = 0;
+                int.TryParse(dr["RowPosition"].ToString(), out rowPos);
+                c.RowPosition = rowPos;
+                c.ControlType = dr["ControlType"].ToString();
+                meta.Add(c);
             }
 
             return list;

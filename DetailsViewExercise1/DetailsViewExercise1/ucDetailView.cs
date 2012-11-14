@@ -41,14 +41,44 @@ namespace DetailsViewExercise1
             for (int i = 0; i < ColumnNames.Count; i++)
             {
                 Label label1 = new Label();
-                //How do I get column names to print in this C# program?
-                //http://stackoverflow.com/a/2557943/139698
                 label1.Text = ColumnNames[i];
-                TextBox textbox1 = new TextBox();
-                textbox1.Text = detailRow[i].ToString();
-
                 table.Controls.Add(label1, curCol, i);
-                table.Controls.Add(textbox1, curCol + 1, i);
+
+                DataRow drSpecial = DataSource[1].Rows.Find(ColumnNames[i]);
+                
+                if (drSpecial != null)
+                {
+                    ColumnMetaData m = new ColumnMetaData();
+                    
+                    string controlType = drSpecial["ControlType"].ToString();
+
+                    if (controlType.Contains("DropDownList"))
+                    {
+                        int resultTableIndex = 0;
+                        //This gets table index from Control Type comma delimited 
+                        //if a ComboBox. Start index at 2 because 1=Detail row and
+                        //2=Meta data table.
+                        int.TryParse(controlType.Split(',')[1], out resultTableIndex);
+
+                        ComboBox cmb = new ComboBox();
+                        
+                        foreach (DataRow item in DataSource[resultTableIndex].Rows)
+                        {
+                            cmb.Items.Add(item["Text"].ToString());
+                        }
+
+                        cmb.SelectedText = detailRow[i].ToString();
+
+                        table.Controls.Add(cmb, ColumnMetaData + 1, i);
+                    }
+                }
+                else //Just use standard textbox for input.
+                {
+                    TextBox textbox1 = new TextBox();
+                    textbox1.Text = detailRow[i].ToString();
+                    table.Controls.Add(textbox1, curCol + 1, i);
+                }
+
             }
 
             //case check:
