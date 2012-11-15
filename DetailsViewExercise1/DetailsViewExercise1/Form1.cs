@@ -69,7 +69,7 @@ DEALLOCATE @SqlStatementCursor
             List<ColumnMetaData> meta = new List<ColumnMetaData>();
 
             DataTable dt1 = list[1];
-            dt1.PrimaryKey = new DataColumn[] { dt1.Columns["FieldName"] };
+            //dt1.PrimaryKey = new DataColumn[] { dt1.Columns["FieldName"] };
 
             foreach (DataRow dr in dt1.Rows)
             {
@@ -84,6 +84,8 @@ DEALLOCATE @SqlStatementCursor
                 c.ControlType = dr["ControlType"].ToString();
                 meta.Add(c);
             }
+
+            ucDetailView1.MetaList = meta;
 
             return list;
         }

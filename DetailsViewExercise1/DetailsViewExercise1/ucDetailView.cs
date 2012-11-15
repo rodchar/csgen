@@ -17,6 +17,8 @@ namespace DetailsViewExercise1
 
         public List<string> ColumnNames { get; set; }
 
+        public List<ColumnMetaData> MetaList { get; set; }
+
         private void DynamicStuff(TableLayoutPanel table)
         {
             //I'm thinking about adding a database table
@@ -44,21 +46,21 @@ namespace DetailsViewExercise1
                 label1.Text = ColumnNames[i];
                 table.Controls.Add(label1, curCol, i);
 
-                DataRow drSpecial = DataSource[1].Rows.Find(ColumnNames[i]);
+                //DataRow drSpecial = DataSource[1].Rows.Find(ColumnNames[i]);
+
+                var drSpecial = MetaList.Find(x => x.FieldName == ColumnNames[i]);
                 
                 if (drSpecial != null)
                 {
                     ColumnMetaData m = new ColumnMetaData();
                     
-                    string controlType = drSpecial["ControlType"].ToString();
-
-                    if (controlType.Contains("DropDownList"))
+                    if (drSpecial.ControlType.Contains("DropDownList"))
                     {
                         int resultTableIndex = 0;
                         //This gets table index from Control Type comma delimited 
                         //if a ComboBox. Start index at 2 because 1=Detail row and
                         //2=Meta data table.
-                        int.TryParse(controlType.Split(',')[1], out resultTableIndex);
+                        int.TryParse(drSpecial.ControlType.Split(',')[1], out resultTableIndex);
 
                         ComboBox cmb = new ComboBox();
                         
@@ -69,7 +71,7 @@ namespace DetailsViewExercise1
 
                         cmb.SelectedText = detailRow[i].ToString();
 
-                        table.Controls.Add(cmb, ColumnMetaData + 1, i);
+                        table.Controls.Add(cmb, drSpecial.ColumnPosition + 1, i);
                     }
                 }
                 else //Just use standard textbox for input.
@@ -78,7 +80,6 @@ namespace DetailsViewExercise1
                     textbox1.Text = detailRow[i].ToString();
                     table.Controls.Add(textbox1, curCol + 1, i);
                 }
-
             }
 
             //case check:
