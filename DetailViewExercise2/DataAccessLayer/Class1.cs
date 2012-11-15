@@ -79,7 +79,7 @@ DEALLOCATE @SqlStatementCursor
 
             
             DataPayload dataPayload = new DataPayload();
-            dataPayload.DataSource = list;
+            dataPayload.DataSources = list;
             dataPayload.MetaList = meta;
             dataPayload.ColumnNames = columnNames;
 

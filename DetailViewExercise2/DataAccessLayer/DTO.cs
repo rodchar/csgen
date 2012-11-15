@@ -18,7 +18,7 @@ namespace DataAccessLayer
 
     public class DataPayload
     {
-        public List<DataTable> DataSource;
+        public List<DataTable> DataSources;
         public List<ColumnMetaData> MetaList;
         public List<string> ColumnNames;
     }

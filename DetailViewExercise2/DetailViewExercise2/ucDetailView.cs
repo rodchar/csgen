@@ -17,9 +17,34 @@ namespace DetailViewExercise2
             InitializeComponent();
         }
 
-        public List<DataTable> DataSource { get; set; }
-        public List<ColumnMetaData> MetaList { get; set; }
-        public List<string> ColumnNames { get; set; }
+        /// <summary>
+        /// This is the only required object
+        /// needed to initialize it.
+        /// </summary>
+        public DataPayload DataPayload
+        {
+            set
+            {
+                DataPayload d = value;
+                _dataSources = d.DataSources;
+                //DataTable 1 = Detail row.
+                //DataTable 2 = Metadata row.
+                //DataTable 3 = Supporting data for ComboBoxes
+                //  DataFormats:
+                //  ControlType = DropDownList,[ResultSetIndex]
+                //  Resultset Index will start at 2 and higher.
+                _columnNames = d.ColumnNames;
+                //All column names of detail row.
+                _metaList = d.MetaList;
+                //SpecialTable1 - information about special control
+                //types other than textbox.
+            }
+        }
+
+        private List<DataTable> _dataSources;
+        private List<ColumnMetaData> _metaList;
+        private List<string> _columnNames;
+        DataRow _detailRow;
 
         private void ucDetailView_Load(object sender, EventArgs e)
         {
@@ -37,15 +62,15 @@ namespace DetailViewExercise2
         public void DynamicStuff(TableLayoutPanel table)
         {
             int curCol = 1;
-            DataRow detailRow = DataSource[0].Rows[0];
+            _detailRow = _dataSources[0].Rows[0];
 
-            for (int i = 0; i < ColumnNames.Count; i++)
+            for (int i = 0; i < _columnNames.Count; i++)
             {
                 Label label1 = new Label();
-                label1.Text = ColumnNames[i].ToString();
+                label1.Text = _columnNames[i].ToString();
                 table.Controls.Add(label1, curCol, i);
 
-                var drSpecial = MetaList.Find(x => x.FieldName == ColumnNames[i]);
+                var drSpecial = _metaList.Find(x => x.FieldName == _columnNames[i]);
 
                 if (drSpecial != null)
                 {
@@ -58,12 +83,12 @@ namespace DetailViewExercise2
 
                         ComboBox cmb = new ComboBox();
 
-                        foreach (DataRow item in DataSource[resultTableIndex].Rows)
+                        foreach (DataRow item in _dataSources[resultTableIndex].Rows)
                         {
                             cmb.Items.Add(item["Text"].ToString());
                         }
 
-                        cmb.SelectedText = detailRow[i].ToString();
+                        cmb.SelectedText = _detailRow[i].ToString();
 
                         table.Controls.Add(cmb, drSpecial.ColumnPosition + 1, i);
                     }
@@ -71,10 +96,15 @@ namespace DetailViewExercise2
                 else //Just use standard textbox for input.
                 {
                     TextBox textbox1 = new TextBox();
-                    textbox1.Text = detailRow[i].ToString();
+                    textbox1.Text = _detailRow[i].ToString();
                     table.Controls.Add(textbox1, curCol + 1, i);
                 }
             }
+        }
+
+        public void SaveData()
+        {
+            //Will return DataTable for TypeDataTable merge.
         }
     }
 }

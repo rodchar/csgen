@@ -28,22 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
-            // label1
-            // 
-            this.label1.Location = new System.Drawing.Point(0, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "label1";
             // 
             // ucDetailView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.label1);
+            this.AutoSize = true;
             this.Name = "ucDetailView";
             this.Load += new System.EventHandler(this.ucDetailView_Load);
             this.ResumeLayout(false);
@@ -51,7 +42,5 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Label label1;
     }
 }
