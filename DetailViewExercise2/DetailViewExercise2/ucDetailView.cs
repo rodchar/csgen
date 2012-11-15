@@ -45,32 +45,35 @@ namespace DetailViewExercise2
         private List<ColumnMetaData> _metaList;
         private List<string> _columnNames;
         DataRow _detailRow;
+        TableLayoutPanel _table;
 
         private void ucDetailView_Load(object sender, EventArgs e)
         {
             //TableLayoutPanel Sample
             //http://code.msdn.microsoft.com/windowsdesktop/TableLayoutPanel-Sample-f1504098
-            TableLayoutPanel table = new TableLayoutPanel();
-            table.AutoSize = true;
-            table.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
+            _table = new TableLayoutPanel();
+            _table.AutoSize = true;
+            _table.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
 
-            DynamicStuff(table);
+            DynamicStuff();
 
-            this.Controls.Add(table);
+            this.Controls.Add(_table);
         }
 
-        public void DynamicStuff(TableLayoutPanel table)
+        public void DynamicStuff()
         {
             int curCol = 1;
             _detailRow = _dataSources[0].Rows[0];
 
             for (int i = 0; i < _columnNames.Count; i++)
             {
-                Label label1 = new Label();
-                label1.Text = _columnNames[i].ToString();
-                table.Controls.Add(label1, curCol, i);
+                string columnName = _columnNames[i];
 
-                var drSpecial = _metaList.Find(x => x.FieldName == _columnNames[i]);
+                Label label1 = new Label();
+                label1.Text = columnName.ToString();
+                _table.Controls.Add(label1, curCol, i);
+
+                var drSpecial = _metaList.Find(x => x.FieldName == columnName);
 
                 if (drSpecial != null)
                 {
@@ -82,6 +85,7 @@ namespace DetailViewExercise2
                         int.TryParse(drSpecial.ControlType.Split(',')[1], out resultTableIndex);
 
                         ComboBox cmb = new ComboBox();
+                        cmb.Name = string.Format("cmb{0}", columnName);
 
                         foreach (DataRow item in _dataSources[resultTableIndex].Rows)
                         {
@@ -90,21 +94,56 @@ namespace DetailViewExercise2
 
                         cmb.SelectedText = _detailRow[i].ToString();
 
-                        table.Controls.Add(cmb, drSpecial.ColumnPosition + 1, i);
+                        _table.Controls.Add(cmb, drSpecial.ColumnPosition + 1, i);
                     }
                 }
                 else //Just use standard textbox for input.
                 {
                     TextBox textbox1 = new TextBox();
+                    textbox1.Name = string.Format("txt{0}", columnName);
                     textbox1.Text = _detailRow[i].ToString();
-                    table.Controls.Add(textbox1, curCol + 1, i);
+                    _table.Controls.Add(textbox1, curCol + 1, i);
                 }
             }
         }
 
         public void SaveData()
         {
+            //Will return a data table so 
+            //can merge with typed data table
+
+            const int CONTROL_KEY_OFFSET = 3;
+            //int txtCount = 0;
+            //int cmbCount = 0;
+            string fieldName = string.Empty;
+
             //Will return DataTable for TypeDataTable merge.
+            foreach (Control item in _table.Controls)
+            {
+                if (!string.IsNullOrEmpty(item.Name))
+                    fieldName = item.Name.Substring(CONTROL_KEY_OFFSET);
+
+                if (item.Name != string.Empty && "txt|cmb".IndexOf(item.Name) > -1)
+                {
+                    //txtCount++;
+                    if (_detailRow[fieldName].ToString() != item.Text)
+                        _detailRow[fieldName] = item.Text;
+                }
+                //else if (item.Name.StartsWith("cmb"))
+                //{
+                //    cmbCount++;
+                //    if (_detailRow[fieldName] != item.Text)
+                //        _detailRow[fieldName] = item.Text;
+                //}
+            }
+
+//            var message = string.Format(@"
+//            txt Count = {0}            
+//            cmb Count = {1}
+//            Item Array Count = {2}
+//            "
+//                , txtCount, cmbCount, _detailRow.ItemArray.Count());
+//            MessageBox.Show(message);            
         }
     }
 }
