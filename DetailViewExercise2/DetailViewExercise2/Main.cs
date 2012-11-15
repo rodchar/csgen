@@ -15,15 +15,12 @@ namespace DetailViewExercise2
         public Main()
         {
             InitializeComponent();
+
+            //Comment out DynamicStuff method in user control
+            //to see Main design view, if needed.
             DataPayload d = new DataPayload();
             d = Class1.GetRecord("Customers", "CustomerID", "ALFKI", "Northwind");
             ucDetailView1.DataPayload = d;
-        }
-
-        private void Main_Load(object sender, EventArgs e)
-        {
-            //Comment out DynamicStuff method in user control
-            //to see Main design view, if needed.
         }
 
         private void btnSave_Click(object sender, EventArgs e)
