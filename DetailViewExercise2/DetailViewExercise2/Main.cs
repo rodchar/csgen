@@ -19,7 +19,7 @@ namespace DetailViewExercise2
             //Comment out DynamicStuff method in user control
             //to see Main design view, if needed.
             DataPayload d = new DataPayload();
-            d = Class1.GetRecord("Customers", "CustomerID", "ALFKI", "Northwind");
+            d = Class1.GetRecord("Customers", "CustomerID", "ALFKI");
             ucDetailView1.DataPayload = d;
         }
 

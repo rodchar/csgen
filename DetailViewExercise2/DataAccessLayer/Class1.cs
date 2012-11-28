@@ -12,7 +12,7 @@ namespace DataAccessLayer
         private static string ConnectionString = string.Format(
         @"Data Source=.\sqlexpress; Initial Catalog={0}; Integrated Security=true", "Northwind");        
 
-        public static DataPayload GetRecord(string tableName, string fieldKey, string recordKey, string databaseName)
+        public static DataPayload GetRecord(string tableName, string fieldKey, string recordKey)
         {
             string queryString = string.Format(
             @"

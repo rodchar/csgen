@@ -35,6 +35,8 @@ IF object_id('tempdb..#Payload') IS NOT NULL DROP TABLE #Payload;
 IF (@page_nbr = 0) SELECT @page_nbr = 1;
 
 SELECT 0 as 'TR', 0 as 'TP',  
+-- Todo: Figure out sort default
+-- http://stackoverflow.com/a/13595691/139698
 ROW_NUMBER() OVER ( ORDER BY {3} ) AS 'Seq'	
 , *
 INTO #Payload
