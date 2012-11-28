@@ -22,6 +22,6 @@ namespace SQL_Dynamic_Efficient_Paging
             {
                 Console.WriteLine("{0},{1}", row.ProductName, row.ReceiptItemName);
             }
-        }               
+        }
     }
 }
