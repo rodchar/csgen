@@ -232,6 +232,9 @@ namespace DataGridViewExercise1
 
         private void dataGridView1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
+            //CellDoubleClick event better suited then CellContentDoubleClick or CellMouseDoubleClick
+            //http://stackoverflow.com/a/13327791/139698
+
             //Set the record id found on row selected and raise event.
             const int ID_COLUMN = 3; //First 3 columns are meta data coming from database.
             int Id = 0;
