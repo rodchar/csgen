@@ -7,10 +7,10 @@ namespace DataGridViewExercise1
 {
     public partial class Form1 : Form
     {
-        const string TABLE_NAME = "Products";
+        const string TABLE_NAME = "vwProductsAndCategories";
         const string SEARCH_FIELD = "Name";
         const string DEFAULT_SORT = "Name";
-        const int PAGE_SIZE = 3;
+        const int PAGE_SIZE = 5;
 
         public Form1()
         {
@@ -48,7 +48,6 @@ namespace DataGridViewExercise1
                 //This event means a row was selected by double-click.
                 MessageBox.Show(dgv1.RowIdSelected.ToString());
             }
-
         }
     }
 }

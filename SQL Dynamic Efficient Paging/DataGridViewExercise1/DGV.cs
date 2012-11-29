@@ -146,6 +146,7 @@ namespace DataGridViewExercise1
 
         private void SetDatabaseResultsInfo()
         {
+            if (PageNumber == 0) { PageNumber = 1; }
             lblPage.Text = string.Format("Page {0} of {1}  ({2} records)", PageNumber, TotalPages, TotalRecords);
             tbPage.Text = PageNumber.ToString();
         }
