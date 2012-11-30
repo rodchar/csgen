@@ -8,6 +8,10 @@ namespace DataGridViewExercise1
 {
     public partial class DGV : UserControl
     {
+        //http://www.codeproject.com/Articles/11014/How-to-route-events-in-a-Windows-Forms-application
+        //See comments at bottom "Sure but..."
+        public event EventHandler UserControlClicked;
+
         private enum SortEventSequence
         {
             Before,
@@ -118,8 +122,8 @@ namespace DataGridViewExercise1
 
             //Before raising event 
 
-            if (EventHandlerDelegate != null)
-                EventHandlerDelegate(sender, e);
+            if (UserControlClicked != null)
+                UserControlClicked(sender, e);
 
             //After raising event 
 
@@ -159,24 +163,6 @@ namespace DataGridViewExercise1
             btnLast.Enabled = last;
         }
 
-        //http://www.codeproject.com/Articles/11014/How-to-route-events-in-a-Windows-Forms-application
-        // define an event handler delegate which basically re-uses an existing
-        // signature
-        public delegate void EventHandler(object sender, EventArgs e);
-        // decalre an event handler delegate
-        EventHandler EventHandlerDelegate;
-        // re-define the Click event
-        new public event EventHandler Click
-        {
-            // this is the equivalent of Click += new EventHandler(...)
-            add
-            {
-                EventHandlerDelegate += value;
-            }
-            // this is the equivalent of Click -= new EventHandler(...)
-            remove { if (EventHandlerDelegate != null) EventHandlerDelegate -= value; }
-        }
-
         public DGV()
         {
             InitializeComponent();
@@ -188,8 +174,8 @@ namespace DataGridViewExercise1
 
             //Before raising event 
 
-            if (EventHandlerDelegate != null)
-                EventHandlerDelegate(sender, e);
+            if (UserControlClicked != null)
+                UserControlClicked(sender, e);
 
             //After raising event 
 
@@ -245,8 +231,8 @@ namespace DataGridViewExercise1
 
             DataGridViewCellEventArgs args = new DataGridViewCellEventArgs(e.ColumnIndex, e.RowIndex);
             
-            if (EventHandlerDelegate != null)
-                EventHandlerDelegate(sender, args);
+            if (UserControlClicked != null)
+                UserControlClicked(sender, args);
         }
 
         private void DGV_Load(object sender, EventArgs e)

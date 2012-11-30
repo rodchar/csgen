@@ -15,7 +15,7 @@ namespace DataGridViewExercise1
         public Form1()
         {
             InitializeComponent();
-            dgv1.Click += Dgv1Click;
+            dgv1.UserControlClicked += new EventHandler(Dgv1Click);
                         
             dgv1.PageSize = PAGE_SIZE;
             dgv1.SortBy = DEFAULT_SORT;
