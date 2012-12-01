@@ -59,6 +59,9 @@ namespace DataGridViewBindingSource
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            //How do I save multiple DataGridView Rows to DataTable in C#? 
+            //http://tinyurl.com/dx8basn
+
             dt = GetData();
 
             BindingSource bs = new BindingSource();
