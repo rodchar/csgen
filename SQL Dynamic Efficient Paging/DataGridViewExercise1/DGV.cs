@@ -182,6 +182,8 @@ namespace DataGridViewExercise1
 
         private void SortAction(object sender, DataGridViewCellMouseEventArgs e, SortEventSequence eventSequence)
         {
+            //Manual sort is made possible by changing sort mode of 
+            //each column. See BindDataGrid method to see this.
             DataGridView dg = sender as DataGridView;
             int colIndex = e.ColumnIndex;
             DataGridViewColumnHeaderCell hc = dg.Columns[colIndex].HeaderCell;
