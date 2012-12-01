@@ -8,6 +8,7 @@ namespace DataGridViewRowButton
         {
             InitializeComponent();
         }
+
         private void button1_Click(object sender, EventArgs e)
         {
             //Add Button to C# DataGridView 
@@ -34,6 +35,7 @@ namespace DataGridViewRowButton
             btn.Name = "btn";
             btn.UseColumnTextForButtonValue = true;
         }
+
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == 3)
