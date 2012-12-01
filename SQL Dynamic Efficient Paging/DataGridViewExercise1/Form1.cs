@@ -45,8 +45,8 @@ namespace DataGridViewExercise1
 
             if (e.GetType().Name == "DataGridViewCellEventArgs")
             {
-                //This event means a row was selected by double-click.
-                MessageBox.Show(dgv1.RowIdSelected.ToString());
+                //This event means a row was selected by double-click
+                MessageBox.Show(dgv1.DataRowViewSelected["Name"].ToString());
             }
         }
     }

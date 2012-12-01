@@ -20,11 +20,12 @@ namespace DataGridViewExercise1
 
         private DataTable _dt = new DataTable();
 
+        public DataRowView DataRowViewSelected { get; set; }
+
         public int PageSize { get; set; }
         public int PageNumber { get; set; }
         public int TotalPages { get; set; }
         public int TotalRecords { get; set; }
-        public int RowIdSelected { get; set; }
         public string SortBy { get; set; }
         private DataGridViewColumnHeaderCellCustom _hc;
 
@@ -75,8 +76,7 @@ namespace DataGridViewExercise1
                 col.SortMode = DataGridViewColumnSortMode.Programmatic;
             }
         }
-
-        // forward the button's click event 
+        
         private void UserControlClick(object sender, EventArgs e)
         {
             var btn = sender as Button;
@@ -122,8 +122,7 @@ namespace DataGridViewExercise1
 
             //Before raising event 
 
-            if (UserControlClicked != null)
-                UserControlClicked(sender, e);
+            if (UserControlClicked != null) UserControlClicked(sender, e);
 
             //After raising event 
 
@@ -174,8 +173,7 @@ namespace DataGridViewExercise1
 
             //Before raising event 
 
-            if (UserControlClicked != null)
-                UserControlClicked(sender, e);
+            if (UserControlClicked != null) UserControlClicked(sender, e);
 
             //After raising event 
 
@@ -217,27 +215,18 @@ namespace DataGridViewExercise1
             return toReturn;
         }
 
-        private void dataGridView1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            //CellDoubleClick event better suited then CellContentDoubleClick or CellMouseDoubleClick
-            //http://stackoverflow.com/a/13327791/139698
-
-            //Set the record id found on row selected and raise event.
-            const int ID_COLUMN = 3; //First 3 columns are meta data coming from database.
-            int Id = 0;
-            int.TryParse(dataGridView1.Rows[e.RowIndex].Cells[ID_COLUMN].Value.ToString(), out Id);
-            
-            RowIdSelected = Id;
-
-            DataGridViewCellEventArgs args = new DataGridViewCellEventArgs(e.ColumnIndex, e.RowIndex);
-            
-            if (UserControlClicked != null)
-                UserControlClicked(sender, args);
-        }
-
         private void DGV_Load(object sender, EventArgs e)
         {
             FirstPageSettings();
+        }
+
+        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            //CellDoubleClick event better suited then CellContentDoubleClick or CellMouseDoubleClick
+            //http://stackoverflow.com/a/13327791/139698
+            DataRowViewSelected = ((DataRowView)dataGridView1.Rows[e.RowIndex].DataBoundItem); //["Name"]
+            //Raise event
+            if (UserControlClicked != null) UserControlClicked(sender, e);
         }
     }
 
