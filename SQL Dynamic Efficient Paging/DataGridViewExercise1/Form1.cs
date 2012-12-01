@@ -7,6 +7,7 @@ namespace DataGridViewExercise1
 {
     public partial class Form1 : Form
     {
+        //Use a view for best results
         const string TABLE_NAME = "vwProductsAndCategories";
         const string SEARCH_FIELD = "Name";
         const string DEFAULT_SORT = "Name";
