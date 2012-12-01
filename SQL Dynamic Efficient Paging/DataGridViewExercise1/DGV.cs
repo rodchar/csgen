@@ -209,6 +209,8 @@ namespace DataGridViewExercise1
 
         public static DataGridViewColumnHeaderCellCustom Clone(DataGridViewColumnHeaderCell hc)
         {
+            //Had to build my own because DataGridViewColumnHeaderCellCustom's
+            //clone didn't work.
             var toReturn = new DataGridViewColumnHeaderCellCustom();
             toReturn.ColumnIndex = hc.ColumnIndex;
             toReturn.SortGlyphDirection = hc.SortGlyphDirection;
