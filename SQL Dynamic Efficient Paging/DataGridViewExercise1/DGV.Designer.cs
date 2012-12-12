@@ -42,7 +42,7 @@
             // 
             // btnFirst
             // 
-            this.btnFirst.Location = new System.Drawing.Point(12, 26);
+            this.btnFirst.Location = new System.Drawing.Point(12, 275);
             this.btnFirst.Name = "btnFirst";
             this.btnFirst.Size = new System.Drawing.Size(50, 23);
             this.btnFirst.TabIndex = 2;
@@ -52,14 +52,14 @@
             // 
             // tbSearch
             // 
-            this.tbSearch.Location = new System.Drawing.Point(478, 26);
+            this.tbSearch.Location = new System.Drawing.Point(478, 275);
             this.tbSearch.Name = "tbSearch";
             this.tbSearch.Size = new System.Drawing.Size(100, 20);
             this.tbSearch.TabIndex = 3;
             // 
             // tbPage
             // 
-            this.tbPage.Location = new System.Drawing.Point(124, 28);
+            this.tbPage.Location = new System.Drawing.Point(124, 277);
             this.tbPage.Name = "tbPage";
             this.tbPage.Size = new System.Drawing.Size(39, 20);
             this.tbPage.TabIndex = 4;
@@ -67,7 +67,7 @@
             // 
             // btnPrev
             // 
-            this.btnPrev.Location = new System.Drawing.Point(68, 26);
+            this.btnPrev.Location = new System.Drawing.Point(68, 275);
             this.btnPrev.Name = "btnPrev";
             this.btnPrev.Size = new System.Drawing.Size(50, 23);
             this.btnPrev.TabIndex = 5;
@@ -77,7 +77,7 @@
             // 
             // btnNext
             // 
-            this.btnNext.Location = new System.Drawing.Point(169, 26);
+            this.btnNext.Location = new System.Drawing.Point(169, 275);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(50, 23);
             this.btnNext.TabIndex = 6;
@@ -87,7 +87,7 @@
             // 
             // btnLast
             // 
-            this.btnLast.Location = new System.Drawing.Point(225, 26);
+            this.btnLast.Location = new System.Drawing.Point(225, 275);
             this.btnLast.Name = "btnLast";
             this.btnLast.Size = new System.Drawing.Size(50, 23);
             this.btnLast.TabIndex = 7;
@@ -97,7 +97,7 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(584, 23);
+            this.btnSearch.Location = new System.Drawing.Point(584, 272);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(75, 23);
             this.btnSearch.TabIndex = 8;
@@ -108,7 +108,7 @@
             // lblPage
             // 
             this.lblPage.AutoSize = true;
-            this.lblPage.Location = new System.Drawing.Point(281, 31);
+            this.lblPage.Location = new System.Drawing.Point(281, 280);
             this.lblPage.Name = "lblPage";
             this.lblPage.Size = new System.Drawing.Size(0, 13);
             this.lblPage.TabIndex = 9;
@@ -117,8 +117,7 @@
             // 
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.dataGridView1.Location = new System.Drawing.Point(0, 94);
+            this.dataGridView1.Location = new System.Drawing.Point(0, 14);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(674, 245);
             this.dataGridView1.TabIndex = 1;
@@ -139,7 +138,7 @@
             this.Controls.Add(this.btnFirst);
             this.Controls.Add(this.dataGridView1);
             this.Name = "DGV";
-            this.Size = new System.Drawing.Size(674, 339);
+            this.Size = new System.Drawing.Size(674, 311);
             this.Load += new System.EventHandler(this.DGV_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
