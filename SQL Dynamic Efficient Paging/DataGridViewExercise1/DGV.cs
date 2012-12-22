@@ -75,6 +75,9 @@ namespace DataGridViewExercise1
                 if ("TP|TR|Seq|Id".IndexOf(col.Name) > -1) col.Visible = false;
                 col.SortMode = DataGridViewColumnSortMode.Programmatic;
             }
+
+            //http://stackoverflow.com/a/8847025/139698
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
         
         private void UserControlClick(object sender, EventArgs e)
