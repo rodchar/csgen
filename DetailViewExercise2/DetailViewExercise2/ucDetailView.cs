@@ -26,7 +26,7 @@ namespace DetailViewExercise2
             set
             {
                 DataPayload d = value;
-                _dataSources = d.DataSources;
+                _dataSources = d.DataSources;                
                 //DataTable 1 = Detail row.
                 //DataTable 2 = Metadata row.
                 //DataTable 3 = Supporting data for ComboBoxes
@@ -64,6 +64,7 @@ namespace DetailViewExercise2
         {
             int curCol = 1;
             _detailRow = _dataSources[0].Rows[0];
+            _detailRow.BeginEdit();
 
             for (int i = 0; i < _columnNames.Count; i++)
             {
@@ -85,7 +86,7 @@ namespace DetailViewExercise2
                         int.TryParse(drSpecial.ControlType.Split(',')[1], out resultTableIndex);
 
                         ComboBox cmb = new ComboBox();
-                        cmb.Name = string.Format("cmb{0}", columnName);
+                        cmb.DataBindings.Add("Text", _dataSources[0], columnName);
 
                         foreach (DataRow item in _dataSources[resultTableIndex].Rows)
                         {
@@ -100,50 +101,27 @@ namespace DetailViewExercise2
                 else //Just use standard textbox for input.
                 {
                     TextBox textbox1 = new TextBox();
-                    textbox1.Name = string.Format("txt{0}", columnName);
+
+                    //Use BeginEdit and EndEdit on data table to change row state
+                    //
+                    //http://stackoverflow.com/q/14000592/139698
+                    //http://www.pcreview.co.uk/forums/databinding-datarow-t1244411.html
+                    textbox1.DataBindings.Add("Text", _dataSources[0], columnName );
                     textbox1.Text = _detailRow[i].ToString();
                     _table.Controls.Add(textbox1, curCol + 1, i);
                 }
             }
         }
 
-        public void SaveData()
+        public DataTable SaveData()
         {
+            _detailRow.EndEdit();
             //Will return a data table so 
             //can merge with typed data table
 
-            const int CONTROL_KEY_OFFSET = 3;
-            //int txtCount = 0;
-            //int cmbCount = 0;
-            string fieldName = string.Empty;
+            //_dataSources[0].AcceptChanges();
 
-            //Will return DataTable for TypeDataTable merge.
-            foreach (Control item in _table.Controls)
-            {
-                if (!string.IsNullOrEmpty(item.Name))
-                    fieldName = item.Name.Substring(CONTROL_KEY_OFFSET);
-
-                if (item.Name != string.Empty && "txt|cmb".IndexOf(item.Name) > -1)
-                {
-                    //txtCount++;
-                    if (_detailRow[fieldName].ToString() != item.Text)
-                        _detailRow[fieldName] = item.Text;
-                }
-                //else if (item.Name.StartsWith("cmb"))
-                //{
-                //    cmbCount++;
-                //    if (_detailRow[fieldName] != item.Text)
-                //        _detailRow[fieldName] = item.Text;
-                //}
-            }
-
-//            var message = string.Format(@"
-//            txt Count = {0}            
-//            cmb Count = {1}
-//            Item Array Count = {2}
-//            "
-//                , txtCount, cmbCount, _detailRow.ItemArray.Count());
-//            MessageBox.Show(message);            
+            return _dataSources[0];
         }
     }
 }
