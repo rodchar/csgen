@@ -15,6 +15,9 @@ namespace DetailViewExercise2
         public ucDetailView()
         {
             InitializeComponent();
+            //I've made some assumptions:
+            //Column 1 is primary key field that is shown as a label
+            //Combo box has comma delimited info in database table
         }
 
         /// <summary>
@@ -73,6 +76,15 @@ namespace DetailViewExercise2
                 Label label1 = new Label();
                 label1.Text = columnName.ToString();
                 _table.Controls.Add(label1, curCol, i);
+
+                //Primary key field assumed column 1 show label
+                if (i == 0)
+                {
+                    label1 = new Label();
+                    label1.Text = _detailRow[i].ToString();
+                    _table.Controls.Add(label1, curCol + 1, i);
+                    continue;
+                }
 
                 var drSpecial = _metaList.Find(x => x.FieldName == columnName);
 
