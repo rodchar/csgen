@@ -228,9 +228,12 @@ namespace DataGridViewExercise1
         {
             //CellDoubleClick event better suited then CellContentDoubleClick or CellMouseDoubleClick
             //http://stackoverflow.com/a/13327791/139698
-            DataRowViewSelected = ((DataRowView)dataGridView1.Rows[e.RowIndex].DataBoundItem); //["Name"]
-            //Raise event
-            if (UserControlClicked != null) UserControlClicked(sender, e);
+            if (e.RowIndex > -1) //Like double clicking column's auto width
+            {
+                DataRowViewSelected = ((DataRowView)dataGridView1.Rows[e.RowIndex].DataBoundItem); //["Name"]
+                //Raise event
+                if (UserControlClicked != null) UserControlClicked(sender, e);
+            }
         }
     }
 
