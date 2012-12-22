@@ -74,6 +74,7 @@ namespace DataGridViewExercise1
             {
                 if ("TP|TR|Seq|Id".IndexOf(col.Name) > -1) col.Visible = false;
                 col.SortMode = DataGridViewColumnSortMode.Programmatic;
+                col.HeaderText = col.Name.SpacePascalCase();
             }
 
             //http://stackoverflow.com/a/8847025/139698
@@ -245,5 +246,36 @@ namespace DataGridViewExercise1
         public int ColumnIndex { get; set; }
         public SortOrder SortGlyphDirection { get; set; }
 
-    }    
+    }
+
+    public static class CustomExtensions
+    {
+        public static string SpacePascalCase(this String input)
+        {
+            string splitString = String.Empty;
+
+            for (int idx = 0; idx < input.Length; idx++)
+            {
+                char c = input[idx];
+
+                if (Char.IsUpper(c)
+                    // keeps abbreviations together like "Number HEI"
+
+                   // instead of making it "Number H E I"
+
+                     && ((idx < input.Length - 1
+                             && !Char.IsUpper(input[idx + 1]))
+                         || (idx != 0
+                             && !Char.IsUpper(input[idx - 1])))
+                     && splitString.Length > 0)
+                {
+                    splitString += " ";
+                }
+
+                splitString += c;
+            }
+
+            return splitString;
+        }
+    }
 }
