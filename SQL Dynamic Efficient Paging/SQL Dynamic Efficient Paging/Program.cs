@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Data.SqlClient;
-using System.Data;
 using DataAccessLayer;
 
 namespace SQL_Dynamic_Efficient_Paging
