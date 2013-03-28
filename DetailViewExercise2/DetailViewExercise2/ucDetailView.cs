@@ -65,7 +65,7 @@ namespace DetailViewExercise2
 
         public void DynamicStuff()
         {
-            int curCol = 1;
+            int curCol = 0;
             _detailRow = _dataSources[0].Rows[0];
             _detailRow.BeginEdit();
 
